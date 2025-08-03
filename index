@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Travel Register Teams App - Mobile</title>
+    <!-- Microsoft Teams SDK -->
+    <script src="https://res.cdn.office.net/teams-js/2.0.0/js/MicrosoftTeams.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -16,6 +18,7 @@
             background: #f5f5f5;
             min-height: 100vh;
             -webkit-overflow-scrolling: touch;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .desktop-container {
@@ -23,6 +26,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            transition: background-color 0.3s ease;
         }
 
         /* Teams Header - Mobile Optimized */
@@ -37,6 +41,7 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            transition: background-color 0.3s ease;
         }
 
         .teams-logo {
@@ -49,6 +54,7 @@
             justify-content: center;
             font-weight: bold;
             font-size: 14px;
+            transition: background-color 0.3s ease;
         }
 
         .app-title {
@@ -66,6 +72,7 @@
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
             -ms-overflow-style: none;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
         .tab-navigation::-webkit-scrollbar {
@@ -121,6 +128,7 @@
             display: none;
             overflow-y: auto;
             width: 100%;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .form-container.active {
@@ -137,12 +145,14 @@
             color: #222241;
             font-size: 24px;
             margin-bottom: 8px;
+            transition: color 0.3s ease;
         }
 
         .form-header p {
             color: #666;
             font-size: 14px;
             line-height: 1.4;
+            transition: color 0.3s ease;
         }
 
         .form-group {
@@ -155,6 +165,7 @@
             font-weight: 600;
             color: #222241;
             font-size: 14px;
+            transition: color 0.3s ease;
         }
 
         input, select, textarea {
@@ -163,7 +174,7 @@
             border: 1px solid #ddd;
             border-radius: 8px;
             font-size: 16px; /* Prevents zoom on iOS */
-            transition: border-color 0.3s, box-shadow 0.3s;
+            transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s ease, color 0.3s ease;
             -webkit-appearance: none;
             appearance: none;
         }
@@ -198,6 +209,7 @@
             margin-bottom: 6px;
             font-size: 12px;
             color: #666;
+            transition: color 0.3s ease;
         }
 
         .flight-group {
@@ -266,6 +278,7 @@
             border-left: 4px solid #1565c0;
             font-size: 13px;
             line-height: 1.4;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .warning-box {
@@ -277,6 +290,7 @@
             border-left: 4px solid #ffc107;
             font-size: 13px;
             line-height: 1.4;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .success-message {
@@ -289,6 +303,7 @@
             display: none;
             font-size: 13px;
             line-height: 1.4;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .error-message {
@@ -301,6 +316,7 @@
             display: none;
             font-size: 13px;
             line-height: 1.4;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         textarea {
@@ -322,6 +338,22 @@
             font-weight: 600;
             z-index: 1000;
             box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+        }
+
+        /* Theme indicator */
+        .theme-badge {
+            position: fixed;
+            top: 100px;
+            right: 10px;
+            background: #28a745;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
+            transition: all 0.3s ease;
         }
 
         /* Responsive breakpoints */
@@ -387,57 +419,217 @@
             }
         }
 
-        /* Dark mode support for Teams */
-        @media (prefers-color-scheme: dark) {
-            body {
-                background: #1e1e1e;
-            }
+        /* Teams Dark Theme */
+        .teams-dark-theme {
+            background: #1e1e1e;
+        }
 
-            .desktop-container {
-                background: #2d2d30;
-            }
+        .teams-dark-theme .desktop-container {
+            background: #2d2d30;
+        }
 
-            .form-container {
-                background: #2d2d30;
-                color: #ffffff;
-            }
+        .teams-dark-theme .form-container {
+            background: #2d2d30;
+            color: #ffffff;
+        }
 
-            .form-header h2 {
-                color: #ffffff;
-            }
+        .teams-dark-theme .form-header h2 {
+            color: #ffffff;
+        }
 
-            label {
-                color: #ffffff;
-            }
+        .teams-dark-theme .form-header p {
+            color: #cccccc;
+        }
 
-            input, select, textarea {
-                background: #3c3c3c;
-                border-color: #555;
-                color: #ffffff;
-            }
+        .teams-dark-theme label {
+            color: #ffffff;
+        }
 
-            input:focus, select:focus, textarea:focus {
-                border-color: #6264A7;
-            }
+        .teams-dark-theme .datetime-field label {
+            color: #cccccc;
+        }
 
-            .tab-navigation {
-                background: #3c3c3c;
-                border-bottom-color: #555;
-            }
+        .teams-dark-theme input, 
+        .teams-dark-theme select, 
+        .teams-dark-theme textarea {
+            background: #3c3c3c;
+            border-color: #555;
+            color: #ffffff;
+        }
 
-            .tab-button {
-                color: #cccccc;
-            }
+        .teams-dark-theme input:focus, 
+        .teams-dark-theme select:focus, 
+        .teams-dark-theme textarea:focus {
+            border-color: #6264A7;
+        }
 
-            .tab-button.active {
-                background: #2d2d30;
-                color: #6264A7;
-            }
+        .teams-dark-theme .tab-navigation {
+            background: #3c3c3c;
+            border-bottom-color: #555;
+        }
+
+        .teams-dark-theme .tab-button {
+            color: #cccccc;
+        }
+
+        .teams-dark-theme .tab-button.active {
+            background: #2d2d30;
+            color: #6264A7;
+        }
+
+        .teams-dark-theme .tab-button:hover {
+            background: #404040;
+        }
+
+        .teams-dark-theme .teams-header {
+            background: #3c3c3c;
+        }
+
+        .teams-dark-theme .teams-logo {
+            background: #6264A7;
+        }
+
+        .teams-dark-theme .info-box {
+            background: #1a2332;
+            color: #4fc3f7;
+            border-left-color: #4fc3f7;
+        }
+
+        .teams-dark-theme .warning-box {
+            background: #332b1f;
+            color: #ffb74d;
+            border-left-color: #ffb74d;
+        }
+
+        .teams-dark-theme .success-message {
+            background: #1b2e1b;
+            color: #66bb6a;
+            border-left-color: #66bb6a;
+        }
+
+        .teams-dark-theme .error-message {
+            background: #3d1a1a;
+            color: #f48fb1;
+            border-left-color: #f48fb1;
+        }
+
+        .teams-dark-theme .theme-badge {
+            background: #6264A7;
+        }
+
+        /* Custom select arrow for dark theme */
+        .teams-dark-theme select {
+            background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23cccccc" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>');
+        }
+
+        /* Teams High Contrast Theme */
+        .teams-contrast-theme {
+            background: #000000;
+        }
+
+        .teams-contrast-theme .desktop-container {
+            background: #000000;
+        }
+
+        .teams-contrast-theme .form-container {
+            background: #000000;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+        }
+
+        .teams-contrast-theme .form-header h2 {
+            color: #ffffff;
+        }
+
+        .teams-contrast-theme .form-header p {
+            color: #ffffff;
+        }
+
+        .teams-contrast-theme label {
+            color: #ffffff;
+        }
+
+        .teams-contrast-theme .datetime-field label {
+            color: #ffffff;
+        }
+
+        .teams-contrast-theme input, 
+        .teams-contrast-theme select, 
+        .teams-contrast-theme textarea {
+            background: #000000;
+            border: 2px solid #ffffff;
+            color: #ffffff;
+        }
+
+        .teams-contrast-theme input:focus, 
+        .teams-contrast-theme select:focus, 
+        .teams-contrast-theme textarea:focus {
+            border-color: #ffff00;
+            box-shadow: 0 0 0 3px #ffff00;
+        }
+
+        .teams-contrast-theme .tab-navigation {
+            background: #000000;
+            border-bottom: 2px solid #ffffff;
+        }
+
+        .teams-contrast-theme .tab-button {
+            color: #ffffff;
+            border: 1px solid #ffffff;
+            margin: 2px;
+        }
+
+        .teams-contrast-theme .tab-button.active {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .teams-contrast-theme .tab-button:hover {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .teams-contrast-theme .teams-header {
+            background: #000000;
+            border-bottom: 2px solid #ffffff;
+        }
+
+        .teams-contrast-theme .teams-logo {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .teams-contrast-theme .submit-btn {
+            background: #ffffff;
+            color: #000000;
+            border: 2px solid #ffffff;
+        }
+
+        .teams-contrast-theme .submit-btn:hover {
+            background: #ffff00;
+            color: #000000;
+        }
+
+        .teams-contrast-theme .cancel-btn {
+            background: #ffffff;
+            color: #000000;
+            border: 2px solid #ffffff;
+        }
+
+        .teams-contrast-theme .cancel-btn:hover {
+            background: #ffff00;
+            color: #000000;
+        }
+
+        .teams-contrast-theme .theme-badge {
+            background: #ffff00;
+            color: #000000;
         }
     </style>
 </head>
 <body>
     <div class="demo-badge">📱 Mobile Ready</div>
+    <div class="theme-badge" id="themeBadge">🌟 Default</div>
     
     <div class="desktop-container">
         <!-- Teams Header -->
@@ -612,8 +804,66 @@
     </div>
 
     <script>
-        // Set date to today in New Zealand time zone
+        // Initialize Teams SDK and get user context
         document.addEventListener('DOMContentLoaded', function() {
+            // Check if we're running in Teams and if the SDK is available
+            if (typeof microsoftTeams !== 'undefined') {
+                console.log('Teams SDK detected, initializing...');
+                
+                try {
+                    // Initialize Microsoft Teams SDK
+                    microsoftTeams.app.initialize().then(() => {
+                        console.log('Teams SDK initialized successfully');
+                        
+                        // Get user context
+                        microsoftTeams.app.getContext().then((context) => {
+                            console.log('Teams context received:', context);
+                            
+                            // Auto-fill user information across all forms
+                            const userDisplayName = context.user?.displayName;
+                            const userEmail = context.user?.userPrincipalName || context.user?.mail;
+                            
+                            if (userDisplayName) {
+                                // Fill all name fields
+                                document.getElementById('userName1').value = userDisplayName;
+                                document.getElementById('userName2').value = userDisplayName;
+                                document.getElementById('userName3').value = userDisplayName;
+                                console.log('Auto-filled user name:', userDisplayName);
+                            }
+                            
+                            if (userEmail) {
+                                // Fill all email fields
+                                document.getElementById('userEmail1').value = userEmail;
+                                document.getElementById('userEmail2').value = userEmail;
+                                document.getElementById('userEmail3').value = userEmail;
+                                console.log('Auto-filled user email:', userEmail);
+                            }
+                            
+                            // Apply Teams theme
+                            applyTeamsTheme(context.app?.theme);
+                            
+                        }).catch((error) => {
+                            console.warn('Could not get Teams context:', error);
+                            // Fallback - app will work without Teams context
+                            applyTeamsTheme('default');
+                        });
+                        
+                    }).catch((error) => {
+                        console.warn('Could not initialize Teams SDK:', error);
+                        // Fallback - app will work without Teams SDK
+                        applyTeamsTheme('default');
+                    });
+                } catch (error) {
+                    console.warn('Teams SDK error:', error);
+                    applyTeamsTheme('default');
+                }
+            } else {
+                console.log('Teams SDK not available - running in standalone mode');
+                // Apply default theme when not in Teams
+                applyTeamsTheme('default');
+            }
+            
+            // Set date to today in New Zealand time zone
             const etaDate1 = document.getElementById('etaDate1');
             const etaDate2 = document.getElementById('etaDate2');
             
@@ -630,6 +880,37 @@
             etaDate1.min = nzDate;
             etaDate2.min = nzDate;
         });
+
+        // Apply Teams theme
+        function applyTeamsTheme(theme) {
+            const body = document.body;
+            const themeBadge = document.getElementById('themeBadge');
+            
+            // Remove existing theme classes
+            body.classList.remove('teams-dark-theme', 'teams-contrast-theme');
+            
+            switch(theme) {
+                case 'dark':
+                    body.classList.add('teams-dark-theme');
+                    themeBadge.textContent = '🌙 Dark';
+                    console.log('Applied Teams dark theme');
+                    break;
+                case 'contrast':
+                    body.classList.add('teams-contrast-theme');
+                    themeBadge.textContent = '🔍 High Contrast';
+                    console.log('Applied Teams high contrast theme');
+                    break;
+                default:
+                    // Check if Teams SDK is available to determine badge text
+                    if (typeof microsoftTeams !== 'undefined') {
+                        themeBadge.textContent = '☀️ Teams Light';
+                    } else {
+                        themeBadge.textContent = '🌐 Standalone';
+                    }
+                    console.log('Applied default theme');
+                    break;
+            }
+        }
 
         // Show/hide flight number field based on transport selection
         document.getElementById('transport').addEventListener('change', function() {
