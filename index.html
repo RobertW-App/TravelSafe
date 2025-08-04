@@ -159,6 +159,11 @@
             margin-bottom: 20px;
         }
 
+        /* Hidden form group for email fields */
+        .form-group.hidden {
+            display: none;
+        }
+
         label {
             display: block;
             margin-bottom: 6px;
@@ -672,14 +677,9 @@
                 </div>
 
                 <form id="travelForm">
-                    <div class="form-group">
-                        <label for="userName1">Full Name *</label>
-                        <input type="text" id="userName1" placeholder="Enter your full name" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="userEmail1">Email Address *</label>
-                        <input type="email" id="userEmail1" placeholder="Enter your email address" required>
+                    <!-- Hidden email field - auto-filled by Teams SDK but not visible to user -->
+                    <div class="form-group hidden">
+                        <input type="email" id="userEmail1" required>
                     </div>
 
                     <div class="form-group">
@@ -739,14 +739,9 @@
                 </div>
 
                 <form id="etaUpdateForm">
-                    <div class="form-group">
-                        <label for="userName2">Full Name *</label>
-                        <input type="text" id="userName2" placeholder="Enter your full name" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="userEmail2">Email Address *</label>
-                        <input type="email" id="userEmail2" placeholder="Enter your email address" required>
+                    <!-- Hidden email field - auto-filled by Teams SDK but not visible to user -->
+                    <div class="form-group hidden">
+                        <input type="email" id="userEmail2" required>
                     </div>
 
                     <div class="form-group">
@@ -787,14 +782,9 @@
                 </div>
 
                 <form id="cancelTripForm">
-                    <div class="form-group">
-                        <label for="userName3">Full Name *</label>
-                        <input type="text" id="userName3" placeholder="Enter your full name" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="userEmail3">Email Address *</label>
-                        <input type="email" id="userEmail3" placeholder="Enter your email address" required>
+                    <!-- Hidden email field - auto-filled by Teams SDK but not visible to user -->
+                    <div class="form-group hidden">
+                        <input type="email" id="userEmail3" required>
                     </div>
 
                     <button type="button" class="cancel-btn">Cancel Trip</button>
@@ -823,16 +813,8 @@
                             const userDisplayName = context.user?.displayName;
                             const userEmail = context.user?.userPrincipalName || context.user?.mail;
                             
-                            if (userDisplayName) {
-                                // Fill all name fields
-                                document.getElementById('userName1').value = userDisplayName;
-                                document.getElementById('userName2').value = userDisplayName;
-                                document.getElementById('userName3').value = userDisplayName;
-                                console.log('Auto-filled user name:', userDisplayName);
-                            }
-                            
                             if (userEmail) {
-                                // Fill all email fields
+                                // Fill all hidden email fields
                                 document.getElementById('userEmail1').value = userEmail;
                                 document.getElementById('userEmail2').value = userEmail;
                                 document.getElementById('userEmail3').value = userEmail;
@@ -957,10 +939,11 @@
             submitBtn.textContent = 'Submitting...';
             submitBtn.disabled = true;
             
-            // Collect form data
+            // Collect form data - Note: userName is now extracted from email context
+            const userEmail = document.getElementById('userEmail1').value;
             const formData = {
-                userName: document.getElementById('userName1').value,
-                userEmail: document.getElementById('userEmail1').value,
+                userName: userEmail.split('@')[0], // Extract username from email for backward compatibility
+                userEmail: userEmail,
                 transport: document.getElementById('transport').value,
                 etaDate: document.getElementById('etaDate1').value,
                 etaTime: document.getElementById('etaTime1').value,
@@ -1036,9 +1019,10 @@
             submitBtn.disabled = true;
             
             // Collect form data
+            const userEmail = document.getElementById('userEmail2').value;
             const formData = {
-                userName: document.getElementById('userName2').value,
-                userEmail: document.getElementById('userEmail2').value,
+                userName: userEmail.split('@')[0], // Extract username from email for backward compatibility
+                userEmail: userEmail,
                 etaDate: document.getElementById('etaDate2').value,
                 etaTime: document.getElementById('etaTime2').value,
                 timestamp: new Date().toISOString()
@@ -1101,9 +1085,10 @@
             this.disabled = true;
             
             // Collect form data
+            const userEmail = document.getElementById('userEmail3').value;
             const formData = {
-                userName: document.getElementById('userName3').value,
-                userEmail: document.getElementById('userEmail3').value,
+                userName: userEmail.split('@')[0], // Extract username from email for backward compatibility
+                userEmail: userEmail,
                 timestamp: new Date().toISOString()
             };
             
