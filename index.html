@@ -447,7 +447,7 @@
         .teams-dark-theme input, 
         .teams-dark-theme select, 
         .teams-dark-theme textarea {
-            background: #3c3c3c;
+            background: #3c3c3c !important;
             border-color: #555;
             color: #ffffff;
         }
@@ -512,10 +512,13 @@
             background: #6264A7;
         }
 
-        /* Custom select arrow for dark theme - Fixed background */
+        /* Custom select arrow for dark theme - Complete override */
         .teams-dark-theme select {
-            background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23cccccc" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>');
-            background-color: #3c3c3c;
+            background: #3c3c3c url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23cccccc" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>') no-repeat right 12px center !important;
+            background-size: 12px !important;
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+            appearance: none !important;
         }
 
         /* Teams High Contrast Theme */
