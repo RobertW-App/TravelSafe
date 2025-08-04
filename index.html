@@ -330,19 +330,9 @@
             font-family: inherit;
         }
 
-        /* Demo indicator - Mobile positioned */
+        /* Demo indicator - Hidden */
         .demo-badge {
-            position: fixed;
-            top: 60px;
-            right: 10px;
-            background: #ff6b6b;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 16px;
-            font-size: 12px;
-            font-weight: 600;
-            z-index: 1000;
-            box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+            display: none;
         }
 
         /* Theme indicator */
@@ -522,9 +512,10 @@
             background: #6264A7;
         }
 
-        /* Custom select arrow for dark theme */
+        /* Custom select arrow for dark theme - Fixed background */
         .teams-dark-theme select {
             background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23cccccc" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>');
+            background-color: #3c3c3c;
         }
 
         /* Teams High Contrast Theme */
@@ -883,12 +874,7 @@
                     console.log('Applied Teams high contrast theme');
                     break;
                 default:
-                    // Check if Teams SDK is available to determine badge text
-                    if (typeof microsoftTeams !== 'undefined') {
-                        themeBadge.textContent = '☀️ Teams Light';
-                    } else {
-                        themeBadge.textContent = '🌐 Standalone';
-                    }
+                    themeBadge.textContent = '☀️ Teams Light';
                     console.log('Applied default theme');
                     break;
             }
