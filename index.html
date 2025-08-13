@@ -6,6 +6,8 @@
     <title>Travel Register Teams App - Mobile</title>
     <!-- Microsoft Teams SDK -->
     <script src="https://res.cdn.office.net/teams-js/2.0.0/js/MicrosoftTeams.min.js"></script>
+    <!-- Google Maps JavaScript API -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChnGR3a3gvKc4XY4q3MWEhJTOe0yvBicc&libraries=places&callback=initMap"></script>
     <style>
         * {
             margin: 0;
@@ -193,6 +195,93 @@
             transition: color 0.3s ease;
         }
 
+        /* Address input with autocomplete */
+        .address-input-container {
+            position: relative;
+        }
+
+        .address-input {
+            padding-right: 40px;
+        }
+
+        .location-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6264a7;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        /* Map container */
+        .map-container {
+            height: 200px;
+            border: 1px solid #8a8886;
+            border-radius: 4px;
+            margin-top: 12px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .map-container.show {
+            display: block;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Travel info display */
+        .travel-info {
+            background: #f3f2f1;
+            border: 1px solid #d2d0ce;
+            border-radius: 4px;
+            padding: 16px;
+            margin-top: 12px;
+            display: none;
+        }
+
+        .travel-info.show {
+            display: block;
+        }
+
+        .travel-info h4 {
+            color: #323130;
+            font-size: 14px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .travel-time {
+            font-size: 18px;
+            font-weight: 600;
+            color: #6264a7;
+            margin-bottom: 4px;
+        }
+
+        .travel-distance {
+            font-size: 14px;
+            color: #605e5c;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #d2d0ce;
+            border-radius: 50%;
+            border-top-color: #6264a7;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         .flight-group {
             display: none;
             opacity: 0;
@@ -200,6 +289,18 @@
         }
 
         .flight-group.show {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Address and travel info grouping for car */
+        .car-travel-section {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .car-travel-section.show {
             display: block;
             opacity: 1;
         }
@@ -343,6 +444,10 @@
             .tab-icon {
                 font-size: 13px;
             }
+
+            .map-container {
+                height: 180px;
+            }
         }
 
         @media (max-width: 360px) {
@@ -356,6 +461,10 @@
 
             .app-title {
                 font-size: 16px;
+            }
+
+            .map-container {
+                height: 160px;
             }
         }
 
@@ -372,6 +481,10 @@
 
             .form-group {
                 margin-bottom: 16px;
+            }
+
+            .map-container {
+                height: 120px;
             }
         }
 
@@ -437,6 +550,15 @@
 
         .teams-dark-theme .tab-button:hover {
             background: #1a1a1a;
+        }
+
+        .teams-dark-theme .travel-info {
+            background: #1a1a1a;
+            border-color: #484644;
+        }
+
+        .teams-dark-theme .travel-info h4 {
+            color: #ffffff;
         }
 
         .teams-dark-theme .info-box {
@@ -558,6 +680,15 @@
             color: #000000;
         }
 
+        .teams-contrast-theme .travel-info {
+            background: #000000;
+            border: 2px solid #ffffff;
+        }
+
+        .teams-contrast-theme .travel-info h4 {
+            color: #ffffff;
+        }
+
         .teams-contrast-theme .info-box {
             background: #000000;
             color: #ffffff;
@@ -598,8 +729,6 @@
     <div class="theme-badge" id="themeBadge">🌟 Default</div>
     
     <div class="desktop-container">
-
-
         <!-- Tab Navigation -->
         <div class="tab-navigation">
             <button class="tab-button active" onclick="showTab('register')">
@@ -646,6 +775,31 @@
                             <option value="Flight">Flight</option>
                             <option value="Car">Car</option>
                         </select>
+                    </div>
+
+                    <!-- Car Travel Section -->
+                    <div class="car-travel-section" id="carTravelSection">
+                        <div class="form-group">
+                            <label for="destination">Destination Address<span class="required-asterisk">*</span></label>
+                            <div class="address-input-container">
+                                <input type="text" id="destination" class="address-input" placeholder="Enter destination address" required>
+                                <span class="location-icon" onclick="getCurrentLocation()" title="Use current location">📍</span>
+                            </div>
+                            
+                            <!-- Map container -->
+                            <div class="map-container" id="mapContainer">
+                                <div id="map"></div>
+                            </div>
+                            
+                            <!-- Travel info display -->
+                            <div class="travel-info" id="travelInfo">
+                                <h4>🚗 Travel Information</h4>
+                                <div class="travel-time" id="travelTime">
+                                    <span class="loading-spinner"></span> Calculating...
+                                </div>
+                                <div class="travel-distance" id="travelDistance"></div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -751,6 +905,178 @@
     </div>
 
     <script>
+        // Global variables
+        let map;
+        let marker;
+        let autocomplete;
+        let directionsService;
+        let directionsRenderer;
+        let userLocation = null;
+
+        // Initialize Google Maps
+        function initMap() {
+            console.log('Initializing Google Maps...');
+            
+            // Initialize map (centered on Auckland, NZ as default)
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: -36.8485, lng: 174.7633 }, // Auckland, NZ
+                zoom: 10,
+                styles: [
+                    {
+                        featureType: 'poi',
+                        elementType: 'labels',
+                        stylers: [{ visibility: 'off' }]
+                    }
+                ]
+            });
+
+            // Initialize directions service
+            directionsService = new google.maps.DirectionsService();
+            directionsRenderer = new google.maps.DirectionsRenderer({
+                draggable: false,
+                suppressMarkers: false
+            });
+            directionsRenderer.setMap(map);
+
+            // Initialize autocomplete
+            const destinationInput = document.getElementById('destination');
+            autocomplete = new google.maps.places.Autocomplete(destinationInput, {
+                componentRestrictions: { country: 'nz' }, // Restrict to New Zealand
+                fields: ['place_id', 'geometry', 'name', 'formatted_address'],
+                types: ['establishment', 'geocode']
+            });
+
+            // Handle place selection
+            autocomplete.addListener('place_changed', function() {
+                const place = autocomplete.getPlace();
+                if (!place.geometry) {
+                    console.log('No details available for input: ' + place.name);
+                    return;
+                }
+
+                // Show map and center on selected place
+                showMapContainer();
+                
+                if (place.geometry.viewport) {
+                    map.fitBounds(place.geometry.viewport);
+                } else {
+                    map.setCenter(place.geometry.location);
+                    map.setZoom(15);
+                }
+
+                // Place marker
+                if (marker) {
+                    marker.setMap(null);
+                }
+                marker = new google.maps.Marker({
+                    position: place.geometry.location,
+                    map: map,
+                    title: place.name
+                });
+
+                // Calculate travel time if user location is available
+                if (userLocation) {
+                    calculateTravelTime(userLocation, place.geometry.location);
+                } else {
+                    // Try to get user location
+                    getCurrentLocation();
+                }
+            });
+
+            console.log('Google Maps initialized successfully');
+        }
+
+        // Get current location
+        function getCurrentLocation() {
+            if (navigator.geolocation) {
+                const travelInfo = document.getElementById('travelInfo');
+                const travelTime = document.getElementById('travelTime');
+                
+                // Show loading state
+                travelInfo.classList.add('show');
+                travelTime.innerHTML = '<span class="loading-spinner"></span> Getting your location...';
+                
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        userLocation = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+                        
+                        console.log('User location obtained:', userLocation);
+                        
+                        // If destination is already selected, calculate travel time
+                        const place = autocomplete.getPlace();
+                        if (place && place.geometry) {
+                            calculateTravelTime(userLocation, place.geometry.location);
+                        } else {
+                            travelInfo.classList.remove('show');
+                        }
+                    },
+                    function(error) {
+                        console.warn('Error getting location:', error);
+                        travelTime.innerHTML = '❌ Unable to get your location';
+                        setTimeout(() => {
+                            travelInfo.classList.remove('show');
+                        }, 3000);
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 10000,
+                        maximumAge: 300000 // 5 minutes
+                    }
+                );
+            } else {
+                alert('Geolocation is not supported by this browser.');
+            }
+        }
+
+        // Calculate travel time using Directions API
+        function calculateTravelTime(origin, destination) {
+            const travelInfo = document.getElementById('travelInfo');
+            const travelTime = document.getElementById('travelTime');
+            const travelDistance = document.getElementById('travelDistance');
+            
+            // Show loading state
+            travelInfo.classList.add('show');
+            travelTime.innerHTML = '<span class="loading-spinner"></span> Calculating travel time...';
+            travelDistance.textContent = '';
+            
+            const request = {
+                origin: origin,
+                destination: destination,
+                travelMode: google.maps.TravelMode.DRIVING,
+                unitSystem: google.maps.UnitSystem.METRIC,
+                avoidHighways: false,
+                avoidTolls: false
+            };
+            
+            directionsService.route(request, function(result, status) {
+                if (status === 'OK') {
+                    // Display the route
+                    directionsRenderer.setDirections(result);
+                    
+                    // Extract travel information
+                    const route = result.routes[0];
+                    const leg = route.legs[0];
+                    
+                    travelTime.textContent = leg.duration.text;
+                    travelDistance.textContent = leg.distance.text + ' via ' + (route.summary || 'best route');
+                    
+                    console.log('Travel time calculated:', leg.duration.text);
+                } else {
+                    console.warn('Directions request failed:', status);
+                    travelTime.textContent = '❌ Unable to calculate travel time';
+                    travelDistance.textContent = 'Please check your destination address';
+                }
+            });
+        }
+
+        // Show map container
+        function showMapContainer() {
+            document.getElementById('mapContainer').classList.add('show');
+        }
+
         // Initialize Teams SDK and get user context
         document.addEventListener('DOMContentLoaded', function() {
             // Check if we're running in Teams and if the SDK is available
@@ -846,14 +1172,30 @@
             }
         }
 
-        // Show/hide flight number field based on transport selection
+        // Show/hide transport-specific sections
         document.getElementById('transport').addEventListener('change', function() {
             const flightGroup = document.getElementById('flightGroup');
+            const carTravelSection = document.getElementById('carTravelSection');
+            
             if (this.value === 'Flight') {
                 flightGroup.classList.add('show');
+                carTravelSection.classList.remove('show');
+                // Hide map and travel info
+                document.getElementById('mapContainer').classList.remove('show');
+                document.getElementById('travelInfo').classList.remove('show');
+            } else if (this.value === 'Car') {
+                flightGroup.classList.remove('show');
+                carTravelSection.classList.add('show');
+                // Clear flight number
+                document.getElementById('flightNumber').value = '';
             } else {
                 flightGroup.classList.remove('show');
+                carTravelSection.classList.remove('show');
+                // Clear all fields
                 document.getElementById('flightNumber').value = '';
+                document.getElementById('destination').value = '';
+                document.getElementById('mapContainer').classList.remove('show');
+                document.getElementById('travelInfo').classList.remove('show');
             }
         });
 
@@ -893,16 +1235,29 @@
             
             // Collect form data - Note: userName is now extracted from email context
             const userEmail = document.getElementById('userEmail1').value;
+            const transport = document.getElementById('transport').value;
             const formData = {
                 userName: userEmail.split('@')[0], // Extract username from email for backward compatibility
                 userEmail: userEmail,
-                transport: document.getElementById('transport').value,
+                transport: transport,
                 etaDate: document.getElementById('etaDate1').value,
                 etaTime: document.getElementById('etaTime1').value,
-                flightNumber: document.getElementById('flightNumber').value,
                 notes: document.getElementById('notes1').value,
                 timestamp: new Date().toISOString()
             };
+
+            // Add transport-specific fields
+            if (transport === 'Flight') {
+                formData.flightNumber = document.getElementById('flightNumber').value;
+            } else if (transport === 'Car') {
+                formData.destination = document.getElementById('destination').value;
+                // Add travel time info if available
+                const travelTimeElement = document.getElementById('travelTime');
+                if (travelTimeElement && !travelTimeElement.textContent.includes('Calculating')) {
+                    formData.travelTime = travelTimeElement.textContent;
+                    formData.travelDistance = document.getElementById('travelDistance').textContent;
+                }
+            }
             
             try {
                 // Using the working Power Automate URL from your functional form
@@ -923,6 +1278,9 @@
                     setTimeout(() => {
                         this.reset();
                         document.getElementById('flightGroup').classList.remove('show');
+                        document.getElementById('carTravelSection').classList.remove('show');
+                        document.getElementById('mapContainer').classList.remove('show');
+                        document.getElementById('travelInfo').classList.remove('show');
                         submitBtn.style.background = '#6264a7';
                         submitBtn.textContent = originalText;
                         submitBtn.disabled = false;
