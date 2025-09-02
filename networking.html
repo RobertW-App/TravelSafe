@@ -156,68 +156,6 @@
             padding: 40px;
         }
         
-        .events-section {
-            margin-bottom: 40px;
-            animation: slideIn 0.6s ease-out;
-        }
-        
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .section-title {
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-            color: white;
-            padding: 20px 30px;
-            border-radius: 15px;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 25px;
-            text-align: center;
-            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .section-title::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            animation: shine 3s infinite;
-        }
-        
-        @keyframes shine {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-        
-        .events-content {
-            background: white;
-            padding: 35px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            font-size: 1.1rem;
-            line-height: 1.8;
-            white-space: pre-line;
-            border-left: 6px solid #3498db;
-            position: relative;
-        }
-        
-        .events-content::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #3498db, #2980b9, #e74c3c);
-        }
-        
         .stats-container {
             display: flex;
             justify-content: center;
@@ -256,6 +194,159 @@
             font-weight: 500;
         }
         
+        /* Organization Containers */
+        .organization-container {
+            margin-bottom: 40px;
+            animation: slideIn 0.6s ease-out;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .organization-header {
+            padding: 25px 35px;
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .organization-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shine 4s infinite;
+        }
+        
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        /* Engineering NZ Branding */
+        .engineering-nz .organization-header {
+            background: linear-gradient(135deg, #1e4d6b 0%, #2980b9 100%);
+        }
+        
+        .engineering-nz {
+            border: 3px solid #2980b9;
+        }
+        
+        /* Building Institute Branding */
+        .building-institute .organization-header {
+            background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
+        }
+        
+        .building-institute {
+            border: 3px solid #e74c3c;
+        }
+        
+        /* TIC Branding */
+        .tic-events .organization-header {
+            background: linear-gradient(135deg, #8e44ad 0%, #9b59b6 100%);
+        }
+        
+        .tic-events {
+            border: 3px solid #9b59b6;
+        }
+        
+        /* University Branding */
+        .university-events .organization-header {
+            background: linear-gradient(135deg, #d35400 0%, #e67e22 100%);
+        }
+        
+        .university-events {
+            border: 3px solid #e67e22;
+        }
+        
+        .org-events-grid {
+            padding: 25px;
+            background: #f8f9fa;
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        }
+        
+        .event-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-top: 4px solid #3498db;
+        }
+        
+        .event-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .engineering-nz .event-card {
+            border-top-color: #2980b9;
+        }
+        
+        .building-institute .event-card {
+            border-top-color: #e74c3c;
+        }
+        
+        .tic-events .event-card {
+            border-top-color: #9b59b6;
+        }
+        
+        .university-events .event-card {
+            border-top-color: #e67e22;
+        }
+        
+        .event-content {
+            padding: 25px;
+        }
+        
+        .event-content h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            line-height: 1.4;
+        }
+        
+        .event-details p {
+            margin-bottom: 12px;
+            color: #34495e;
+            line-height: 1.6;
+        }
+        
+        .event-details strong {
+            color: #2c3e50;
+        }
+        
+        .event-link {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .event-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+        
         .no-events {
             text-align: center;
             padding: 80px 20px;
@@ -290,9 +381,22 @@
                 padding: 25px 20px;
             }
             
-            .events-content {
-                padding: 25px;
-                font-size: 1rem;
+            .org-events-grid {
+                padding: 20px;
+                grid-template-columns: 1fr;
+            }
+            
+            .event-content {
+                padding: 20px;
+            }
+            
+            .event-content h3 {
+                font-size: 1.2rem;
+            }
+            
+            .organization-header {
+                padding: 20px 25px;
+                font-size: 1.2rem;
             }
             
             .stats-container {
@@ -329,7 +433,21 @@
             }
             
             .stats-container {
-                grid-template-columns: repeat(2, 1fr);
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .stat-item {
+                width: 200px;
+            }
+            
+            .org-events-grid {
+                padding: 15px;
+                grid-template-columns: 1fr;
+            }
+            
+            .event-content {
+                padding: 15px;
             }
         }
     </style>
@@ -376,25 +494,168 @@
             </div>
             
             <div id="allEventsContainer">
-                <div class="events-section" id="thisweekSection">
-                    <div class="section-title">❗What is on this week❗</div>
-                    <div class="events-content">🔹 <b>He kura nā Rātā, He kura pūkaha</b><br/>📅 Date: 2025-09-04<br/>📍 Location: 3 Grafton Road, Auckland Central, Auckland<br/><br/>📄 Summary: <br/>Come along to explore the past, present and future of Māori in engineering. Hear from leaders in the field and collaborate on ways to apply mātauranga and Te Ao Māori in engineering to help make the profession more inclusive for Māori.<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/programmes/kimihia-rangahaua/he-kura-n%C4%81-r%C4%81t%C4%81-he-kura-p%C5%ABkaha-wisdom-from-r%C4%81t%C4%81/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Southern Region Rockcote Quiz Night 2025</b><br/>📅 Date: 2025-09-03<br/>📍 Location: 76 Hereford Street, Christchurch<br/><br/>📄 Summary: <br/>Who will win the Building Institute Southern Region Quiz this year?! 
-Pull together your team of six and join us for one of the standout social fixtures in Christchurch’s construction sector calendar.
-The event features welcome drinks, platters, networking, Believe it or Not Quiz with bonus challenge rounds with Riggsy from Hirepool as your quiz master!
-Colleagues, clients, and family (over 18 years only) are all welcome!<br/><br/>🔗 Event Link: <br/><a href="https://buildinginstitute.nz/events/southern-region-rockcote-quiz-night-2025/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Young Engineers & Espressos</b><br/>📅 Date: 2025-09-04<br/>📍 Location: 7/11 Waterloo Quay, Wellington<br/><br/>📄 Summary: <br/>Join us for a relaxed coffee catch-up with fellow young engineers!
-It’s a great chance to step away from the screen, exchange ideas and get to know each other in a laid-back setting. A free coffee and a bite to eat will be provided as an added bonus.<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event/young-engineers-espressos/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Pub Quiz in Howick</b><br/>📅 Date: 2025-09-04<br/>📍 Location: 78 Picton Street, Auckland<br/><br/>📄 Summary: <br/>Join the Auckland Branch for a pub quiz and connect with fellow engineers over a friendly battle of wits.<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event/pub-quiz-in-howick/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Renold New Zealand Site Visit</b><br/>📅 Date: 2025-09-04<br/>📍 Location: 594 Rosebank Road, Auckland<br/><br/>📄 Summary: <br/>Join the Auckland Branch for an exclusive behind-the-scenes tour of Renold New Zealand, hosted by General Manager, Vaibhav Garg.
-This is a unique opportunity to explore Renold’s world-class workshop facilities and gain insights into their machining capabilities and diverse product range.<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event/renold-new-zealand-site-visit/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/></div>
+                <!-- Engineering NZ Events -->
+                <div class="organization-container engineering-nz" id="engineeringNzContainer">
+                    <div class="organization-header">
+                        <h2>⚙️ Engineering New Zealand</h2>
+                    </div>
+                    <div class="org-events-grid">
+                        <div class="event-card thisweek" data-date="2025-09-04">
+                            <div class="event-content">
+                                <h3>He kura nā Rātā, He kura pūkaha</h3>
+                                <div class="event-details">
+                                    <p><strong>📅 Date:</strong> September 4, 2025</p>
+                                    <p><strong>📍 Location:</strong> 3 Grafton Road, Auckland Central</p>
+                                    <p><strong>📄 Summary:</strong> Come along to explore the past, present and future of Māori in engineering. Hear from leaders in the field and collaborate on ways to apply mātauranga and Te Ao Māori in engineering to help make the profession more inclusive for Māori.</p>
+                                    <a href="https://www.engineeringnz.org/programmes/kimihia-rangahaua/he-kura-n%C4%81-r%C4%81t%C4%81-he-kura-p%C5%ABkaha-wisdom-from-r%C4%81t%C4%81/" class="event-link">View Event →</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="event-card thisweek" data-date="2025-09-04">
+                            <div class="event-content">
+                                <h3>Young Engineers & Espressos</h3>
+                                <div class="event-details">
+                                    <p><strong>📅 Date:</strong> September 4, 2025</p>
+                                    <p><strong>📍 Location:</strong> 7/11 Waterloo Quay, Wellington</p>
+                                    <p><strong>📄 Summary:</strong> Join us for a relaxed coffee catch-up with fellow young engineers! It's a great chance to step away from the screen, exchange ideas and get to know each other in a laid-back setting. A free coffee and a bite to eat will be provided as an added bonus.</p>
+                                    <a href="https://www.engineeringnz.org/courses-events/event/young-engineers-espressos/" class="event-link">View Event →</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="event-card thisweek" data-date="2025-09-04">
+                            <div class="event-content">
+                                <h3>Pub Quiz in Howick</h3>
+                                <div class="event-details">
+                                    <p><strong>📅 Date:</strong> September 4, 2025</p>
+                                    <p><strong>📍 Location:</strong> 78 Picton Street, Auckland</p>
+                                    <p><strong>📄 Summary:</strong> Join the Auckland Branch for a pub quiz and connect with fellow engineers over a friendly battle of wits.</p>
+                                    <a href="https://www.engineeringnz.org/courses-events/event/pub-quiz-in-howick/" class="event-link">View Event →</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="event-card thisweek" data-date="2025-09-04">
+                            <div class="event-content">
+                                <h3>Renold New Zealand Site Visit</h3>
+                                <div class="event-details">
+                                    <p><strong>📅 Date:</strong> September 4, 2025</p>
+                                    <p><strong>📍 Location:</strong> 594 Rosebank Road, Auckland</p>
+                                    <p><strong>📄 Summary:</strong> Join the Auckland Branch for an exclusive behind-the-scenes tour of Renold New Zealand, hosted by General Manager, Vaibhav Garg. This is a unique opportunity to explore Renold's world-class workshop facilities and gain insights into their machining capabilities and diverse product range.</p>
+                                    <a href="https://www.engineeringnz.org/courses-events/event/renold-new-zealand-site-visit/" class="event-link">View Event →</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="event-card fourweeks" data-date="2025-09-23">
+                            <div class="event-content">
+                                <h3>Humes Papakura Manufacturing Plant Tour</h3>
+                                <div class="event-details">
+                                    <p><strong>📅 Date:</strong> September 23, 2025</p>
+                                    <p><strong>📍 Location:</strong> 76 Hunua Road, Papakura</p>
+                                    <p><strong>📄 Summary:</strong> This tour offers engineers the opportunity to observe the latest concrete pipe manufacturing technologies in New Zealand, including Radial Press (RP) and Vibration Technology (VT). Attendees will gain insight into vertically cast pipe production process and see first hand how precision, consistency, and quality are achieved at scale.</p>
+                                    <a href="https://www.engineeringnz.org/courses-events/event-template/?eventtemplate=4574-humes-papakura-manufacturing-plant-tour&region=IPENZB" class="event-link">View Event →</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="events-section" id="nextweekSection">
-                    <div class="section-title">❗What is on next week❗</div>
-                    <div class="events-content">🔹 <b>TIC Auckland Site Visit: The Karanga-a-Hape Station Precinct Integration Project</b><br/>📅 Date: 2025-09-10<br/>📍 Location: 53 Pitt Street, Auckland<br/><br/>📄 Summary: <br/>TIC Auckland, together with Auckland Transport and JFC, are pleased to invite a small group of members to visit Project K – The Karanga-a-Hape Station Precinct Integration Project.<br/><br/>🔗 Event Link: <br/><a href="https://portal.infrastructure.org.nz/all-events/events-details/?id=3e10cf3a-8fd8-44f1-b4db-92320ae2f0d7">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/></div>
+
+                <!-- Building Institute Events -->
+                <div class="organization-container building-institute" id="buildingInstituteContainer">
+                    <div class="organization-header">
+                        <h2>🏗️ Building Institute</h2>
+                    </div>
+                    <div class="org-events-grid">
+                        <div class="event-card thisweek" data-date="2025-09-03">
+                            <div class="event-content">
+                                <h3>Southern Region Rockcote Quiz Night 2025</h3>
+                                <div class="event-details">
+                                    <p><strong>📅 Date:</strong> September 3, 2025</p>
+                                    <p><strong>📍 Location:</strong> 76 Hereford Street, Christchurch</p>
+                                    <p><strong>📄 Summary:</strong> Who will win the Building Institute Southern Region Quiz this year?! Pull together your team of six and join us for one of the standout social fixtures in Christchurch's construction sector calendar. The event features welcome drinks, platters, networking, Believe it or Not Quiz with bonus challenge rounds with Riggsy from Hirepool as your quiz master!</p>
+                                    <a href="https://buildinginstitute.nz/events/southern-region-rockcote-quiz-night-2025/" class="event-link">View Event →</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="event-card fourweeks" data-date="2025-09-18">
+                            <div class="event-content">
+                                <h3>Site Visit: Fisher & Paykel</h3>
+                                <div class="event-details">
+                                    <p><strong>📅 Date:</strong> September 18, 2025</p>
+                                    <p><strong>📍 Location:</strong> 129 Diana Drive, Auckland</p>
+                                    <p><strong>📄 Summary:</strong> Take an exclusive look inside a landmark construction project. Step inside one of Auckland's most innovative construction projects with this exclusive site visit to Fisher & Paykel's purpose-built Global HQ and research and development facility.</p>
+                                    <a href="https://buildinginstitute.nz/events/site-visit-fisher-and-paykel/" class="event-link">View Event →</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="event-card fourweeks" data-date="2025-09-24">
+                            <div class="event-content">
+                                <h3>Site Visit Makers Construction</h3>
+                                <div class="event-details">
+                                    <p><strong>📅 Date:</strong> September 24, 2025</p>
+                                    <p><strong>📍 Location:</strong> 115 Gracefield Road, Lower Hutt</p>
+                                    <p><strong>📄 Summary:</strong> Makers Fabrication connects architecture and construction through digital technology and offsite manufacturing, delivering tailored solutions across modular, hybrid, panelised, and custom joinery projects, including mahi toi/arts integration.</p>
+                                    <a href="https://buildinginstitute.nz/events/site-visit-makers-construction/" class="event-link">View Event →</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="event-card fourweeks" data-date="2025-09-26">
+                            <div class="event-content">
+                                <h3>Site Visit: 211 High Street</h3>
+                                <div class="event-details">
+                                    <p><strong>📅 Date:</strong> September 26, 2025</p>
+                                    <p><strong>📍 Location:</strong> 211 High Street, Christchurch</p>
+                                    <p><strong>📄 Summary:</strong> Join a site tour of Christchurch's first commercial European mass timber project, showcasing sustainable construction with glulam beams and CLT panels.</p>
+                                    <a href="https://buildinginstitute.nz/events/site-visit-211-high-street/" class="event-link">View Event →</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="events-section" id="fourweeksSection">
-                    <div class="section-title">❗What is on for the next four weeks❗</div>
-                    <div class="events-content">🔹 <b>Raising the Bar - Christchurch</b><br/>📅 Date: 2025-09-16<br/>📍 Location: 380 Colombo Street, Christchurch<br/><br/>📄 Summary: <br/>Ever wished your lecture came with a comfy booth and your favourite pint? Here’s your chance. Raising the Bar is back on Tuesday 16 September! UC is taking 20 smart, funny and thought-provoking talks into 10 bars across Christchurch Central, Redcliffs and Lincoln — with sessions at 6.30pm and 8pm. Pick your venue, pick your talk, and bring a friend! Seats are limited and they fill fast.<br/><br/>🔗 Event Link: <br/><a href="https://www.rtbevent.com/rtbchch2025">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Humes Papakura Manufacturing Plant Tour</b><br/>📅 Date: 2025-09-23<br/>📍 Location: 76 Hunua Road, Papakura<br/><br/>📄 Summary: <br/>This tour offers engineers the opportunity to observe the latest concrete pipe manufacturing technologies in New Zealand, including Radial Press (RP) and Vibration Technology (VT). Attendees will gain insight into vertically cast pipe production process and see first hand how precision, consistency, and quality are achieved at scale. The tour also provides a platform for technical discussions around pipeline systems and an overview of the current solutions available in the market.<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event-template/?eventtemplate=4574-humes-papakura-manufacturing-plant-tour&region=IPENZB">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Site Visit: Fisher & Paykel</b><br/>📅 Date: 2025-09-18<br/>📍 Location: 129 Diana Drive, Auckland<br/><br/>📄 Summary: <br/>Take an exclusive look inside a landmark construction project.
-Step inside one of Auckland’s most innovative construction projects with this exclusive site visit to Fisher & Paykel’s purpose-built Global HQ and research and development facility. <br/><br/>🔗 Event Link: <br/><a href="https://buildinginstitute.nz/events/site-visit-fisher-and-paykel/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Site Visit Makers Construction</b><br/>📅 Date: 2025-09-24<br/>📍 Location: 115 Gracefield Road, Lower Hutt<br/><br/>📄 Summary: <br/>Makers Fabrication connects architecture and construction through digital technology and offsite manufacturing, delivering tailored solutions across modular, hybrid, panelised, and custom joinery projects, including mahi toi/arts integration. Part of the broader Makers group—which includes an architecture studio and upcoming housing development—its 25+ multidisciplinary experts work from a purpose-built workshop to deliver high-quality projects across Aotearoa. The factory site tour offers a glimpse into their workshop, approach, and processes.<br/><br/>🔗 Event Link: <br/><a href="https://buildinginstitute.nz/events/site-visit-makers-construction/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Site Visit: 211 High Street</b><br/>📅 Date: 2025-09-26<br/>📍 Location: 211 High Street, Christchurch<br/><br/>📄 Summary: <br/>Join a site tour of Christchurch’s first commercial European mass timber project, showcasing sustainable construction with glulam beams and CLT panels.<br/><br/>🔗 Event Link: <br/><a href="https://buildinginstitute.nz/events/site-visit-211-high-street/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/></div>
+
+                <!-- TIC Events -->
+                <div class="organization-container tic-events" id="ticContainer">
+                    <div class="organization-header">
+                        <h2>🏛️ TIC Auckland</h2>
+                    </div>
+                    <div class="org-events-grid">
+                        <div class="event-card nextweek" data-date="2025-09-10">
+                            <div class="event-content">
+                                <h3>TIC Auckland Site Visit: The Karanga-a-Hape Station Precinct Integration Project</h3>
+                                <div class="event-details">
+                                    <p><strong>📅 Date:</strong> September 10, 2025</p>
+                                    <p><strong>📍 Location:</strong> 53 Pitt Street, Auckland</p>
+                                    <p><strong>📄 Summary:</strong> TIC Auckland, together with Auckland Transport and JFC, are pleased to invite a small group of members to visit Project K – The Karanga-a-Hape Station Precinct Integration Project.</p>
+                                    <a href="https://portal.infrastructure.org.nz/all-events/events-details/?id=3e10cf3a-8fd8-44f1-b4db-92320ae2f0d7" class="event-link">View Event →</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- University Events -->
+                <div class="organization-container university-events" id="universityContainer">
+                    <div class="organization-header">
+                        <h2>🎓 University of Canterbury</h2>
+                    </div>
+                    <div class="org-events-grid">
+                        <div class="event-card fourweeks" data-date="2025-09-16">
+                            <div class="event-content">
+                                <h3>Raising the Bar - Christchurch</h3>
+                                <div class="event-details">
+                                    <p><strong>📅 Date:</strong> September 16, 2025</p>
+                                    <p><strong>📍 Location:</strong> 380 Colombo Street, Christchurch</p>
+                                    <p><strong>📄 Summary:</strong> Ever wished your lecture came with a comfy booth and your favourite pint? Here's your chance. Raising the Bar is back on Tuesday 16 September! UC is taking 20 smart, funny and thought-provoking talks into 10 bars across Christchurch Central, Redcliffs and Lincoln.</p>
+                                    <a href="https://www.rtbevent.com/rtbchch2025" class="event-link">View Event →</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             
@@ -407,67 +668,65 @@ Step inside one of Auckland’s most innovative construction projects with this 
     </div>
 
     <script>
-        // Get the event content from the divs
-        const sections = {
-            thisweek: document.getElementById('thisweekSection'),
-            nextweek: document.getElementById('nextweekSection'),
-            fourweeks: document.getElementById('fourweeksSection')
-        };
+        // Get all event cards and organization containers
+        const eventCards = document.querySelectorAll('.event-card');
+        const orgContainers = document.querySelectorAll('.organization-container');
         
-        // Count events in each section (rough count by counting event separators)
-        function countEvents(text) {
-            if (!text || text.trim() === '') return 0;
-            // Count the decorative separators which indicate separate events
-            const separators = (text.match(/━━━━⊱⋆⊰━━━━/g) || []).length;
-            const events = (text.match(/🔹/g) || []).length;
-            return Math.max(separators, events);
+        function countEventsByPeriod() {
+            const counts = {
+                thisweek: 0,
+                nextweek: 0,
+                fourweeks: 0,
+                total: 0
+            };
+            
+            eventCards.forEach(card => {
+                const classes = card.className;
+                if (classes.includes('thisweek')) counts.thisweek++;
+                else if (classes.includes('nextweek')) counts.nextweek++;
+                else if (classes.includes('fourweeks')) counts.fourweeks++;
+                counts.total++;
+            });
+            
+            return counts;
         }
         
         function updateStats() {
-            const thisWeekText = sections.thisweek.querySelector('.events-content').textContent;
-            const nextWeekText = sections.nextweek.querySelector('.events-content').textContent;
-            const fourWeeksText = sections.fourweeks.querySelector('.events-content').textContent;
+            const counts = countEventsByPeriod();
             
-            const thisWeekCount = countEvents(thisWeekText);
-            const nextWeekCount = countEvents(nextWeekText);
-            const fourWeeksCount = countEvents(fourWeeksText);
-            const totalCount = thisWeekCount + nextWeekCount + fourWeeksCount;
-            
-            document.getElementById('totalEvents').textContent = totalCount;
-            document.getElementById('thisWeekCount').textContent = thisWeekCount;
-            document.getElementById('nextWeekCount').textContent = nextWeekCount;
-            document.getElementById('upcomingCount').textContent = fourWeeksCount;
+            document.getElementById('totalEvents').textContent = counts.total;
+            document.getElementById('thisWeekCount').textContent = counts.thisweek;
+            document.getElementById('nextWeekCount').textContent = counts.nextweek;
+            document.getElementById('upcomingCount').textContent = counts.fourweeks;
         }
         
         function filterEvents(period) {
             const allContainer = document.getElementById('allEventsContainer');
             const noEventsMsg = document.getElementById('noEventsMessage');
+            let hasVisibleEvents = false;
             
-            // Show all sections by default
-            Object.values(sections).forEach(section => {
-                section.style.display = 'block';
-            });
-            
-            if (period !== 'all') {
-                // Hide sections that don't match the filter
-                Object.keys(sections).forEach(key => {
-                    if (key !== period) {
-                        sections[key].style.display = 'none';
+            // Show/hide organization containers based on whether they have matching events
+            orgContainers.forEach(container => {
+                const cards = container.querySelectorAll('.event-card');
+                let containerHasVisibleEvents = false;
+                
+                cards.forEach(card => {
+                    if (period === 'all' || card.classList.contains(period)) {
+                        card.style.display = 'block';
+                        containerHasVisibleEvents = true;
+                        hasVisibleEvents = true;
+                    } else {
+                        card.style.display = 'none';
                     }
                 });
                 
-                // Check if the selected section has content
-                const selectedSection = sections[period];
-                const hasContent = selectedSection && 
-                    selectedSection.querySelector('.events-content').textContent.trim() !== '';
-                
-                if (!hasContent) {
-                    allContainer.style.display = 'none';
-                    noEventsMsg.classList.remove('hidden');
-                } else {
-                    allContainer.style.display = 'block';
-                    noEventsMsg.classList.add('hidden');
-                }
+                // Show/hide the entire organization container
+                container.style.display = containerHasVisibleEvents ? 'block' : 'none';
+            });
+            
+            if (!hasVisibleEvents) {
+                allContainer.style.display = 'none';
+                noEventsMsg.classList.remove('hidden');
             } else {
                 allContainer.style.display = 'block';
                 noEventsMsg.classList.add('hidden');
@@ -477,27 +736,36 @@ Step inside one of Auckland’s most innovative construction projects with this 
         function searchEvents(searchTerm) {
             const allContainer = document.getElementById('allEventsContainer');
             const noEventsMsg = document.getElementById('noEventsMessage');
+            let hasVisibleEvents = false;
             
             if (!searchTerm.trim()) {
-                // Show all sections if no search term
-                Object.values(sections).forEach(section => {
-                    section.style.display = 'block';
-                });
+                // Show all events and containers if no search term
+                eventCards.forEach(card => card.style.display = 'block');
+                orgContainers.forEach(container => container.style.display = 'block');
                 allContainer.style.display = 'block';
                 noEventsMsg.classList.add('hidden');
                 return;
             }
             
-            let hasVisibleEvents = false;
+            const searchLower = searchTerm.toLowerCase();
             
-            Object.values(sections).forEach(section => {
-                const content = section.querySelector('.events-content').textContent.toLowerCase();
-                if (content.includes(searchTerm.toLowerCase())) {
-                    section.style.display = 'block';
-                    hasVisibleEvents = true;
-                } else {
-                    section.style.display = 'none';
-                }
+            orgContainers.forEach(container => {
+                const cards = container.querySelectorAll('.event-card');
+                let containerHasVisibleEvents = false;
+                
+                cards.forEach(card => {
+                    const content = card.textContent.toLowerCase();
+                    if (content.includes(searchLower)) {
+                        card.style.display = 'block';
+                        containerHasVisibleEvents = true;
+                        hasVisibleEvents = true;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                // Show/hide the entire organization container
+                container.style.display = containerHasVisibleEvents ? 'block' : 'none';
             });
             
             if (!hasVisibleEvents) {
@@ -547,5 +815,3 @@ Step inside one of Auckland’s most innovative construction projects with this 
             });
         });
     </script>
-</body>
-</html>
