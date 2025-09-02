@@ -17,80 +17,406 @@
             color: #333;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 20px;
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
             overflow: hidden;
+            margin-top: 20px;
+            margin-bottom: 20px;
         }
         
         .header {
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white;
-            padding: 40px 30px;
+            padding: 50px 40px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            animation: float 20s linear infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(-50px, -50px) rotate(0deg); }
+            100% { transform: translate(-50px, -50px) rotate(360deg); }
         }
         
         .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            font-weight: 700;
+            font-size: 3rem;
+            margin-bottom: 15px;
+            font-weight: 800;
+            position: relative;
+            z-index: 2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
         
         .last-updated {
-            opacity: 0.8;
+            opacity: 0.9;
+            font-size: 1rem;
+            position: relative;
+            z-index: 2;
+            background: rgba(255,255,255,0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        
+        .filters-container {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 30px 40px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .filters-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            text-align: center;
+        }
+        
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .filter-label {
+            font-weight: 600;
+            color: #495057;
             font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .filter-select {
+            padding: 12px 16px;
+            border: 2px solid #dee2e6;
+            border-radius: 12px;
+            font-size: 1rem;
+            background: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .filter-select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .filter-select:hover {
+            border-color: #adb5bd;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .clear-filters {
+            background: #e74c3c !important;
+            border-color: #e74c3c !important;
+            color: white !important;
+        }
+        
+        .clear-filters:hover {
+            background: #c0392b !important;
+            border-color: #c0392b !important;
         }
         
         .content {
-            padding: 30px;
-            font-size: 1.1rem;
-            line-height: 1.8;
+            padding: 40px;
         }
         
-        .section-title {
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 10px;
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin: 30px 0 20px 0;
+        .search-container {
+            margin-bottom: 30px;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
         }
         
-        .events-section {
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 15px;
+        .search-box {
+            width: 100%;
+            max-width: 500px;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            border: 2px solid #dee2e6;
+            border-radius: 50px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+        
+        .search-box:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.1);
+        }
+        
+        .events-grid {
+            display: grid;
+            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+        }
+        
+        .event-card {
+            background: white;
+            border: none;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border-left: 6px solid #3498db;
+        }
+        
+        .event-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3498db, #2980b9);
+        }
+        
+        .event-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border-left-color: #e74c3c;
+        }
+        
+        .event-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2c3e50;
             margin-bottom: 20px;
-            border-left: 5px solid #3498db;
-            white-space: pre-line;
+            line-height: 1.3;
+        }
+        
+        .event-details {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .detail-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 8px 0;
+        }
+        
+        .detail-icon {
+            font-size: 1.2rem;
+            width: 25px;
+            flex-shrink: 0;
+        }
+        
+        .detail-text {
+            flex: 1;
+            font-size: 1rem;
+        }
+        
+        .date {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+        
+        .location {
+            color: #27ae60;
+            font-weight: 500;
+        }
+        
+        .summary {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+            font-size: 0.98rem;
+            line-height: 1.6;
+        }
+        
+        .event-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+        
+        .event-link:hover {
+            background: linear-gradient(135deg, #764ba2, #667eea);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .event-tags {
+            display: flex;
+            gap: 8px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .event-tag {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .no-events {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6c757d;
+            font-size: 1.2rem;
+        }
+        
+        .no-events-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+        
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            background: white;
+            padding: 15px 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            min-width: 120px;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #6c757d;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
         @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-            
             .header {
-                padding: 30px 20px;
+                padding: 40px 20px;
             }
             
             .header h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
+            }
+            
+            .filters-container {
+                padding: 20px;
+            }
+            
+            .filters-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
             }
             
             .content {
                 padding: 20px;
-                font-size: 1rem;
             }
+            
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .event-card {
+                padding: 20px;
+            }
+            
+            .stats-container {
+                gap: 15px;
+            }
+            
+            .filter-buttons {
+                justify-content: center;
+            }
+            
+            .filter-btn {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+            }
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -98,25 +424,335 @@
     <div class="container">
         <div class="header">
             <h1>🎯 Upcoming Networking Events 🎯</h1>
-            <div class="last-updated">Last updated: 2025-09-02T22:52:09.4066095Z</div>
+            <div class="last-updated">Last updated: 2025-09-02T22:58:09.5530026Z</div>
+        </div>
+        
+        <div class="filters-container">
+            <div class="filters-title">🔍 Filter Events</div>
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label class="filter-label">📅 Time Period</label>
+                    <select class="filter-select" id="timeFilter">
+                        <option value="all">All Time Periods</option>
+                        <option value="thisweek">This Week</option>
+                        <option value="nextweek">Next Week</option>
+                        <option value="fourweeks">Next Four Weeks</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">📍 Location</label>
+                    <select class="filter-select" id="locationFilter">
+                        <option value="all">All Locations</option>
+                        <option value="auckland">Auckland</option>
+                        <option value="wellington">Wellington</option>
+                        <option value="christchurch">Christchurch</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">🏷️ Event Type</label>
+                    <select class="filter-select" id="typeFilter">
+                        <option value="all">All Event Types</option>
+                        <option value="networking">Networking</option>
+                        <option value="site-visit">Site Visit</option>
+                        <option value="quiz">Quiz Night</option>
+                        <option value="workshop">Workshop</option>
+                        <option value="social">Social</option>
+                    </select>
+                </div>
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-period="all">All Events</button>
+                <button class="filter-btn" data-period="thisweek">This Week</button>
+                <button class="filter-btn" data-period="nextweek">Next Week</button>
+                <button class="filter-btn" data-period="fourweeks">Coming Month</button>
+                <button class="filter-btn clear-filters">Clear Filters</button>
+            </div>
         </div>
         
         <div class="content">
-            <div class="section-title">❗What is on this week❗</div>
-            <div class="events-section">🔹 <b>He kura nā Rātā, He kura pūkaha</b><br/>📅 Date: 2025-09-04<br/>📍 Location: 3 Grafton Road, Auckland Central, Auckland<br/><br/>📄 Summary: <br/>Come along to explore the past, present and future of Māori in engineering. Hear from leaders in the field and collaborate on ways to apply mātauranga and Te Ao Māori in engineering to help make the profession more inclusive for Māori.<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/programmes/kimihia-rangahaua/he-kura-n%C4%81-r%C4%81t%C4%81-he-kura-p%C5%ABkaha-wisdom-from-r%C4%81t%C4%81/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Southern Region Rockcote Quiz Night 2025</b><br/>📅 Date: 2025-09-03<br/>📍 Location: 76 Hereford Street, Christchurch<br/><br/>📄 Summary: <br/>Who will win the Building Institute Southern Region Quiz this year?! 
+            <div class="search-container">
+                <input type="text" class="search-box" id="searchBox" placeholder="🔍 Search events by title, location, or description...">
+            </div>
+            
+            <div class="stats-container" id="statsContainer">
+                <div class="stat-item">
+                    <span class="stat-number" id="totalEvents">0</span>
+                    <span class="stat-label">Total Events</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="thisWeekCount">0</span>
+                    <span class="stat-label">This Week</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="nextWeekCount">0</span>
+                    <span class="stat-label">Next Week</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="upcomingCount">0</span>
+                    <span class="stat-label">Coming Month</span>
+                </div>
+            </div>
+            
+            <div class="events-grid" id="eventsGrid">
+                <!-- Events will be populated here by JavaScript -->
+            </div>
+            
+            <div class="no-events hidden" id="noEventsMessage">
+                <div class="no-events-icon">😔</div>
+                <h3>No events found</h3>
+                <p>Try adjusting your filters or search terms</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Parse the events data from Power Automate variables
+        const eventsData = parseEventsFromText();
+        
+        function parseEventsFromText() {
+            const events = [];
+            
+            // This Week Events
+            const thisWeekText = `🔹 <b>He kura nā Rātā, He kura pūkaha</b><br/>📅 Date: 2025-09-04<br/>📍 Location: 3 Grafton Road, Auckland Central, Auckland<br/><br/>📄 Summary: <br/>Come along to explore the past, present and future of Māori in engineering. Hear from leaders in the field and collaborate on ways to apply mātauranga and Te Ao Māori in engineering to help make the profession more inclusive for Māori.<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/programmes/kimihia-rangahaua/he-kura-n%C4%81-r%C4%81t%C4%81-he-kura-p%C5%ABkaha-wisdom-from-r%C4%81t%C4%81/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Southern Region Rockcote Quiz Night 2025</b><br/>📅 Date: 2025-09-03<br/>📍 Location: 76 Hereford Street, Christchurch<br/><br/>📄 Summary: <br/>Who will win the Building Institute Southern Region Quiz this year?! 
 Pull together your team of six and join us for one of the standout social fixtures in Christchurch’s construction sector calendar.
 The event features welcome drinks, platters, networking, Believe it or Not Quiz with bonus challenge rounds with Riggsy from Hirepool as your quiz master!
 Colleagues, clients, and family (over 18 years only) are all welcome!<br/><br/>🔗 Event Link: <br/><a href="https://buildinginstitute.nz/events/southern-region-rockcote-quiz-night-2025/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Young Engineers & Espressos</b><br/>📅 Date: 2025-09-04<br/>📍 Location: 7/11 Waterloo Quay, Wellington<br/><br/>📄 Summary: <br/>Join us for a relaxed coffee catch-up with fellow young engineers!
 It’s a great chance to step away from the screen, exchange ideas and get to know each other in a laid-back setting. A free coffee and a bite to eat will be provided as an added bonus.<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event/young-engineers-espressos/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Pub Quiz in Howick</b><br/>📅 Date: 2025-09-04<br/>📍 Location: 78 Picton Street, Auckland<br/><br/>📄 Summary: <br/>Join the Auckland Branch for a pub quiz and connect with fellow engineers over a friendly battle of wits.<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event/pub-quiz-in-howick/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Renold New Zealand Site Visit</b><br/>📅 Date: 2025-09-04<br/>📍 Location: 594 Rosebank Road, Auckland<br/><br/>📄 Summary: <br/>Join the Auckland Branch for an exclusive behind-the-scenes tour of Renold New Zealand, hosted by General Manager, Vaibhav Garg.
-This is a unique opportunity to explore Renold’s world-class workshop facilities and gain insights into their machining capabilities and diverse product range.<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event/renold-new-zealand-site-visit/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/></div>
+This is a unique opportunity to explore Renold’s world-class workshop facilities and gain insights into their machining capabilities and diverse product range.<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event/renold-new-zealand-site-visit/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>`;
+            if (thisWeekText && thisWeekText.trim()) {
+                parseEventsFromSection(thisWeekText, 'thisweek', events);
+            }
             
-            <div class="section-title">❗What is on next week❗</div>
-            <div class="events-section">🔹 <b>TIC Auckland Site Visit: The Karanga-a-Hape Station Precinct Integration Project</b><br/>📅 Date: 2025-09-10<br/>📍 Location: 53 Pitt Street, Auckland<br/><br/>📄 Summary: <br/>TIC Auckland, together with Auckland Transport and JFC, are pleased to invite a small group of members to visit Project K – The Karanga-a-Hape Station Precinct Integration Project.<br/><br/>🔗 Event Link: <br/><a href="https://portal.infrastructure.org.nz/all-events/events-details/?id=3e10cf3a-8fd8-44f1-b4db-92320ae2f0d7">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/></div>
+            // Next Week Events  
+            const nextWeekText = `🔹 <b>TIC Auckland Site Visit: The Karanga-a-Hape Station Precinct Integration Project</b><br/>📅 Date: 2025-09-10<br/>📍 Location: 53 Pitt Street, Auckland<br/><br/>📄 Summary: <br/>TIC Auckland, together with Auckland Transport and JFC, are pleased to invite a small group of members to visit Project K – The Karanga-a-Hape Station Precinct Integration Project.<br/><br/>🔗 Event Link: <br/><a href="https://portal.infrastructure.org.nz/all-events/events-details/?id=3e10cf3a-8fd8-44f1-b4db-92320ae2f0d7">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>`;
+            if (nextWeekText && nextWeekText.trim()) {
+                parseEventsFromSection(nextWeekText, 'nextweek', events);
+            }
             
-            <div class="section-title">❗What is on for the next four weeks❗</div>
-            <div class="events-section">🔹 <b>Raising the Bar - Christchurch</b><br/>📅 Date: 2025-09-16<br/>📍 Location: 380 Colombo Street, Christchurch<br/><br/>📄 Summary: <br/>Ever wished your lecture came with a comfy booth and your favourite pint? Here’s your chance. Raising the Bar is back on Tuesday 16 September! UC is taking 20 smart, funny and thought-provoking talks into 10 bars across Christchurch Central, Redcliffs and Lincoln — with sessions at 6.30pm and 8pm. Pick your venue, pick your talk, and bring a friend! Seats are limited and they fill fast.<br/><br/>🔗 Event Link: <br/><a href="https://www.rtbevent.com/rtbchch2025">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Humes Papakura Manufacturing Plant Tour</b><br/>📅 Date: 2025-09-23<br/>📍 Location: 76 Hunua Road, Papakura<br/><br/>📄 Summary: <br/>This tour offers engineers the opportunity to observe the latest concrete pipe manufacturing technologies in New Zealand, including Radial Press (RP) and Vibration Technology (VT). Attendees will gain insight into vertically cast pipe production process and see first hand how precision, consistency, and quality are achieved at scale. The tour also provides a platform for technical discussions around pipeline systems and an overview of the current solutions available in the market.<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event-template/?eventtemplate=4574-humes-papakura-manufacturing-plant-tour&region=IPENZB">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Site Visit: Fisher & Paykel</b><br/>📅 Date: 2025-09-18<br/>📍 Location: 129 Diana Drive, Auckland<br/><br/>📄 Summary: <br/>Take an exclusive look inside a landmark construction project.
-Step inside one of Auckland’s most innovative construction projects with this exclusive site visit to Fisher & Paykel’s purpose-built Global HQ and research and development facility. <br/><br/>🔗 Event Link: <br/><a href="https://buildinginstitute.nz/events/site-visit-fisher-and-paykel/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Site Visit Makers Construction</b><br/>📅 Date: 2025-09-24<br/>📍 Location: 115 Gracefield Road, Lower Hutt<br/><br/>📄 Summary: <br/>Makers Fabrication connects architecture and construction through digital technology and offsite manufacturing, delivering tailored solutions across modular, hybrid, panelised, and custom joinery projects, including mahi toi/arts integration. Part of the broader Makers group—which includes an architecture studio and upcoming housing development—its 25+ multidisciplinary experts work from a purpose-built workshop to deliver high-quality projects across Aotearoa. The factory site tour offers a glimpse into their workshop, approach, and processes.<br/><br/>🔗 Event Link: <br/><a href="https://buildinginstitute.nz/events/site-visit-makers-construction/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Site Visit: 211 High Street</b><br/>📅 Date: 2025-09-26<br/>📍 Location: 211 High Street, Christchurch<br/><br/>📄 Summary: <br/>Join a site tour of Christchurch’s first commercial European mass timber project, showcasing sustainable construction with glulam beams and CLT panels.<br/><br/>🔗 Event Link: <br/><a href="https://buildinginstitute.nz/events/site-visit-211-high-street/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/></div>
-        </div>
-    </div>
+            // Four Weeks Events
+            const fourWeeksText = `🔹 <b>Raising the Bar - Christchurch</b><br/>📅 Date: 2025-09-16<br/>📍 Location: 380 Colombo Street, Christchurch<br/><br/>📄 Summary: <br/>Ever wished your lecture came with a comfy booth and your favourite pint? Here’s your chance. Raising the Bar is back on Tuesday 16 September! UC is taking 20 smart, funny and thought-provoking talks into 10 bars across Christchurch Central, Redcliffs and Lincoln — with sessions at 6.30pm and 8pm. Pick your venue, pick your talk, and bring a friend! Seats are limited and they fill fast.<br/><br/>🔗 Event Link: <br/><a href="https://www.rtbevent.com/rtbchch2025">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Humes Papakura Manufacturing Plant Tour</b><br/>📅 Date: 2025-09-23<br/>📍 Location: 76 Hunua Road, Papakura<br/><br/>📄 Summary: <br/>This tour offers engineers the opportunity to observe the latest concrete pipe manufacturing technologies in New Zealand, including Radial Press (RP) and Vibration Technology (VT). Attendees will gain insight into vertically cast pipe production process and see first hand how precision, consistency, and quality are achieved at scale. The tour also provides a platform for technical discussions around pipeline systems and an overview of the current solutions available in the market.<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event-template/?eventtemplate=4574-humes-papakura-manufacturing-plant-tour&region=IPENZB">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Site Visit: Fisher & Paykel</b><br/>📅 Date: 2025-09-18<br/>📍 Location: 129 Diana Drive, Auckland<br/><br/>📄 Summary: <br/>Take an exclusive look inside a landmark construction project.
+Step inside one of Auckland’s most innovative construction projects with this exclusive site visit to Fisher & Paykel’s purpose-built Global HQ and research and development facility. <br/><br/>🔗 Event Link: <br/><a href="https://buildinginstitute.nz/events/site-visit-fisher-and-paykel/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Site Visit Makers Construction</b><br/>📅 Date: 2025-09-24<br/>📍 Location: 115 Gracefield Road, Lower Hutt<br/><br/>📄 Summary: <br/>Makers Fabrication connects architecture and construction through digital technology and offsite manufacturing, delivering tailored solutions across modular, hybrid, panelised, and custom joinery projects, including mahi toi/arts integration. Part of the broader Makers group—which includes an architecture studio and upcoming housing development—its 25+ multidisciplinary experts work from a purpose-built workshop to deliver high-quality projects across Aotearoa. The factory site tour offers a glimpse into their workshop, approach, and processes.<br/><br/>🔗 Event Link: <br/><a href="https://buildinginstitute.nz/events/site-visit-makers-construction/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Site Visit: 211 High Street</b><br/>📅 Date: 2025-09-26<br/>📍 Location: 211 High Street, Christchurch<br/><br/>📄 Summary: <br/>Join a site tour of Christchurch’s first commercial European mass timber project, showcasing sustainable construction with glulam beams and CLT panels.<br/><br/>🔗 Event Link: <br/><a href="https://buildinginstitute.nz/events/site-visit-211-high-street/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>`;
+            if (fourWeeksText && fourWeeksText.trim()) {
+                parseEventsFromSection(fourWeeksText, 'fourweeks', events);
+            }
+            
+            return events;
+        }
+        
+        function parseEventsFromSection(text, period, events) {
+            // Split by the decorative separator
+            const eventBlocks = text.split('━━━━⊱⋆⊰━━━━').filter(block => block.trim());
+            
+            eventBlocks.forEach(block => {
+                const lines = block.trim().split('\n').filter(line => line.trim());
+                if (lines.length < 4) return;
+                
+                let event = {
+                    period: period,
+                    title: '',
+                    date: '',
+                    location: '',
+                    summary: '',
+                    link: '#'
+                };
+                
+                lines.forEach(line => {
+                    line = line.trim();
+                    if (line.startsWith('🔹')) {
+                        event.title = line.replace('🔹', '').trim();
+                    } else if (line.startsWith('📅 Date:')) {
+                        event.date = line.replace('📅 Date:', '').trim();
+                    } else if (line.startsWith('📍 Location:')) {
+                        event.location = line.replace('📍 Location:', '').trim();
+                    } else if (line.startsWith('📄 Summary:')) {
+                        // Get summary from next lines until we hit another emoji or end
+                        const summaryStartIndex = lines.indexOf(line);
+                        let summaryText = '';
+                        for (let i = summaryStartIndex + 1; i < lines.length; i++) {
+                            if (lines[i].startsWith('🔗') || lines[i].includes('━━━━')) break;
+                            summaryText += lines[i] + ' ';
+                        }
+                        event.summary = summaryText.trim();
+                    } else if (line.startsWith('🔗 Event Link:')) {
+                        if (lines[lines.indexOf(line) + 1] && lines[lines.indexOf(line) + 1].trim() !== 'Link') {
+                            event.link = lines[lines.indexOf(line) + 1].trim();
+                        }
+                    }
+                });
+                
+                // Determine location category
+                event.locationCategory = getLocationCategory(event.location);
+                
+                // Determine event type
+                event.eventType = getEventType(event.title, event.summary);
+                
+                if (event.title) {
+                    events.push(event);
+                }
+            });
+        }
+        
+        function getLocationCategory(location) {
+            const lower = location.toLowerCase();
+            if (lower.includes('auckland') || lower.includes('grafton') || lower.includes('pitt street') || lower.includes('picton street')) {
+                return 'auckland';
+            } else if (lower.includes('wellington') || lower.includes('courtenay') || lower.includes('waterloo quay')) {
+                return 'wellington';
+            } else if (lower.includes('christchurch') || lower.includes('hereford') || lower.includes('colombo')) {
+                return 'christchurch';
+            }
+            return 'other';
+        }
+        
+        function getEventType(title, summary) {
+            const text = (title + ' ' + summary).toLowerCase();
+            if (text.includes('quiz')) return 'quiz';
+            if (text.includes('site visit') || text.includes('tour')) return 'site-visit';
+            if (text.includes('workshop') || text.includes('seminar')) return 'workshop';
+            if (text.includes('networking') || text.includes('coffee') || text.includes('espresso')) return 'networking';
+            if (text.includes('social') || text.includes('pub') || text.includes('drinks')) return 'social';
+            return 'networking';
+        }
+        
+        function formatDate(dateStr) {
+            if (!dateStr) return 'Date TBD';
+            const date = new Date(dateStr);
+            if (isNaN(date.getTime())) return dateStr;
+            return date.toLocaleDateString('en-NZ', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+        
+        function createEventCard(event) {
+            return `
+                <div class="event-card fade-in" 
+                     data-period="${event.period}" 
+                     data-location="${event.locationCategory}" 
+                     data-type="${event.eventType}"
+                     data-search="${(event.title + ' ' + event.location + ' ' + event.summary).toLowerCase()}">
+                    <div class="event-title">🔹 ${event.title}</div>
+                    <div class="event-details">
+                        <div class="detail-item">
+                            <span class="detail-icon">📅</span>
+                            <span class="detail-text date">${formatDate(event.date)}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-icon">📍</span>
+                            <span class="detail-text location">${event.location}</span>
+                        </div>
+                    </div>
+                    <div class="summary">
+                        <strong>📄 Summary:</strong><br>
+                        ${event.summary}
+                    </div>
+                    <div class="event-tags">
+                        <span class="event-tag">${getPeriodLabel(event.period)}</span>
+                        <span class="event-tag">${event.locationCategory.charAt(0).toUpperCase() + event.locationCategory.slice(1)}</span>
+                    </div>
+                    <a href="${event.link}" class="event-link" target="_blank">🔗 View Event Details</a>
+                </div>
+            `;
+        }
+        
+        function getPeriodLabel(period) {
+            const labels = {
+                'thisweek': 'This Week',
+                'nextweek': 'Next Week', 
+                'fourweeks': 'Coming Month',
+                'other': 'Upcoming'
+            };
+            return labels[period] || 'Upcoming';
+        }
+        
+        function renderEvents(filteredEvents = eventsData) {
+            const grid = document.getElementById('eventsGrid');
+            const noEventsMsg = document.getElementById('noEventsMessage');
+            
+            if (filteredEvents.length === 0) {
+                grid.innerHTML = '';
+                noEventsMsg.classList.remove('hidden');
+                return;
+            }
+            
+            noEventsMsg.classList.add('hidden');
+            grid.innerHTML = filteredEvents.map(event => createEventCard(event)).join('');
+        }
+        
+        function updateStats(events = eventsData) {
+            const stats = {
+                total: events.length,
+                thisweek: events.filter(e => e.period === 'thisweek').length,
+                nextweek: events.filter(e => e.period === 'nextweek').length,
+                fourweeks: events.filter(e => e.period === 'fourweeks').length
+            };
+            
+            document.getElementById('totalEvents').textContent = stats.total;
+            document.getElementById('thisWeekCount').textContent = stats.thisweek;
+            document.getElementById('nextWeekCount').textContent = stats.nextweek;
+            document.getElementById('upcomingCount').textContent = stats.fourweeks;
+        }
+        
+        function applyFilters() {
+            const timeFilter = document.getElementById('timeFilter').value;
+            const locationFilter = document.getElementById('locationFilter').value;
+            const typeFilter = document.getElementById('typeFilter').value;
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+            
+            let filtered = eventsData.filter(event => {
+                const matchesTime = timeFilter === 'all' || event.period === timeFilter;
+                const matchesLocation = locationFilter === 'all' || event.locationCategory === locationFilter;
+                const matchesType = typeFilter === 'all' || event.eventType === typeFilter;
+                const matchesSearch = searchTerm === '' || event.title.toLowerCase().includes(searchTerm) || 
+                                    event.location.toLowerCase().includes(searchTerm) || 
+                                    event.summary.toLowerCase().includes(searchTerm);
+                
+                return matchesTime && matchesLocation && matchesType && matchesSearch;
+            });
+            
+            renderEvents(filtered);
+            updateStats(filtered);
+        }
+        
+        // Event listeners
+        document.getElementById('timeFilter').addEventListener('change', applyFilters);
+        document.getElementById('locationFilter').addEventListener('change', applyFilters);
+        document.getElementById('typeFilter').addEventListener('change', applyFilters);
+        document.getElementById('searchBox').addEventListener('input', applyFilters);
+        
+        // Filter buttons
+        document.querySelectorAll('.filter-btn:not(.clear-filters)').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn:not(.clear-filters)').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                const period = this.dataset.period;
+                document.getElementById('timeFilter').value = period;
+                applyFilters();
+            });
+        });
+        
+        // Clear filters button
+        document.querySelector('.clear-filters').addEventListener('click', function() {
+            document.getElementById('timeFilter').value = 'all';
+            document.getElementById('locationFilter').value = 'all';
+            document.getElementById('typeFilter').value = 'all';
+            document.getElementById('searchBox').value = '';
+            
+            document.querySelectorAll('.filter-btn:not(.clear-filters)').forEach(b => b.classList.remove('active'));
+            document.querySelector('.filter-btn[data-period="all"]').classList.add('active');
+            
+            applyFilters();
+        });
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            renderEvents();
+            updateStats();
+        });
+    </script>
 </body>
 </html>
