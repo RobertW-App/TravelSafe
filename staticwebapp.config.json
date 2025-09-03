@@ -1,5 +1,8 @@
 {
-  "navigationFallback": {
-    "rewrite": "/networking.html"
-  }
+  "routes": [
+    {
+      "route": "/",
+      "rewrite": "/networking.html"
+    }
+  ]
 }
