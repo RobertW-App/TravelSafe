@@ -839,9 +839,65 @@
             background: #000000 url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23ffffff" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>') no-repeat right 16px center;
             background-size: 16px;
         }
+        .back-button-container {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+}
+
+.back-button {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    color: #2c3e50;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.back-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    background: rgba(255, 255, 255, 1);
+}
+
+.back-button:active {
+    transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    .back-button-container {
+        position: relative;
+        top: 0;
+        left: 0;
+        margin: 15px 0;
+        text-align: left;
+        padding: 0 20px;
+    }
+    
+    .back-button {
+        position: relative;
+        display: inline-flex;
+    }
+}
     </style>
 </head>
 <body>
+    <div class="back-button-container">
+    <a href="index.html" class="back-button">
+        <span>←</span>
+        Back to Home
+    </a>
+</div>
     <div class="demo-badge">📱 Mobile Ready</div>
     <div class="theme-badge" id="themeBadge">🌟 Default</div>
     
