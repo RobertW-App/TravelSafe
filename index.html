@@ -1,1 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Tools</title>
+    <!-- Microsoft Teams SDK -->
+    <script src="https://res.cdn.office.net/teams-js/2.0.0/js/MicrosoftTeams.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f3f2f1;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .header {
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: #323130;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .header p {
+            color: #605e5c;
+            font-size: 1rem;
+        }
+
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .app-button {
+            display: block;
+            background: #6264a7;
+            color: white;
+            text-decoration: none;
+            padding: 20px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .app-button:hover {
+            background: #464775;
+            transform: translateY(-2px);
+        }
+
+        .app-button:active {
+            transform: translateY(0);
+        }
+
+        /* Teams Dark Theme */
+        .teams-dark-theme {
+            background: #292828;
+        }
+
+        .teams-dark-theme .header h1 {
+            color: #ffffff;
+        }
+
+        .teams-dark-theme .header p {
+            color: #d2d0ce;
+        }
+
+        /* Teams High Contrast Theme */
+        .teams-contrast-theme {
+            background: #000000;
+        }
+
+        .teams-contrast-theme::before {
+            display: none;
+        }
+
+        .teams-contrast-theme .container {
+            background: #000000;
+            border: 2px solid #ffffff;
+        }
+
+        .teams-contrast-theme .header h1 {
+            color: #ffffff;
+        }
+
+        .teams-contrast-theme .header p {
+            color: #ffffff;
+        }
+
+        .teams-contrast-theme .app-button {
+            background: #ffffff;
+            color: #000000;
+            border: 2px solid #ffffff;
+        }
+
+        .teams-contrast-theme .app-button:hover {
+            background: #ffff00;
+            color: #000000;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 15px;
+            }
+
+            .header h1 {
+                font-size: 1.6rem;
+            }
+
+            .buttons-container {
+                max-width: 100%;
+            }
+
+            .app-button {
+                padding: 18px 25px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Business Tools</h1>
+            <p>Choose an application</p>
+        </div>
+
+        <div class="buttons-container">
+            <a href="networking-events.html" class="app-button">
+                Networking Events
+            </a>
+            
+            <a href="travel-register.html" class="app-button">
+                Travel Register
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Microsoft Teams SDK if available
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof microsoftTeams !== 'undefined') {
+                try {
+                    microsoftTeams.app.initialize().then(() => {
+                        microsoftTeams.app.getContext().then((context) => {
+                            applyTeamsTheme(context.app?.theme);
+                        }).catch(() => {
+                            // Continue without theme
+                        });
+                    }).catch(() => {
+                        // Continue without Teams SDK
+                    });
+                } catch (error) {
+                    // Continue without Teams SDK
+                }
+            }
+        });
+
+        function applyTeamsTheme(theme) {
+            const body = document.body;
+            body.classList.remove('teams-dark-theme', 'teams-contrast-theme');
+            
+            if (theme === 'dark') {
+                body.classList.add('teams-dark-theme');
+            } else if (theme === 'contrast') {
+                body.classList.add('teams-contrast-theme');
+            }
+        }
+    </script>
+</body>
+</html>
