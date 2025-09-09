@@ -82,95 +82,11 @@
             padding: 40px;
         }
         
-        .period-section {
-            margin-bottom: 50px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-        
-        .period-header {
-            padding: 25px 35px;
-            color: white;
-            font-size: 1.4rem;
-            font-weight: 700;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .period-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            animation: shine 4s infinite;
-        }
-        
-        @keyframes shine {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-        
-        .this-week .period-header {
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-        }
-        
-        .next-week .period-header {
-            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
-        }
-        
-        .rest-month .period-header {
-            background: linear-gradient(135deg, #2980b9 0%, #1e4d6b 100%);
-        }
-        
-        .period-content {
-            padding: 30px;
-            background: #f8f9fa;
-            font-size: 1.1rem;
-            line-height: 1.8;
-        }
-        
-        .period-content strong {
-            color: #2c3e50;
-        }
-        
-        .period-content a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        
-        .period-content a:hover {
-            color: #764ba2;
-            text-decoration: underline;
-        }
-        
-        .event-separator {
-            margin: 25px 0;
-            text-align: center;
-            color: #6c757d;
-            font-size: 1.2rem;
-        }
-        
-        .no-events {
-            text-align: center;
-            padding: 60px 20px;
-            color: #6c757d;
-            font-size: 1.2rem;
-            font-style: italic;
-        }
-        
         .stats-container {
             display: flex;
             justify-content: center;
             gap: 25px;
-            margin: 30px 0 50px 0;
+            margin: 30px 0;
             flex-wrap: wrap;
         }
         
@@ -204,6 +120,116 @@
             font-weight: 500;
         }
         
+        /* Time Period Containers */
+        .period-container {
+            margin-bottom: 40px;
+            animation: slideIn 0.6s ease-out;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            display: none;
+        }
+        
+        .period-container.has-content {
+            display: block;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .period-header {
+            padding: 25px 35px;
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .period-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shine 4s infinite;
+        }
+        
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        /* This Week Branding */
+        .this-week .period-header {
+            background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
+        }
+        
+        .this-week {
+            border: 3px solid #e74c3c;
+        }
+        
+        /* Next Week Branding */
+        .next-week .period-header {
+            background: linear-gradient(135deg, #d35400 0%, #e67e22 100%);
+        }
+        
+        .next-week {
+            border: 3px solid #e67e22;
+        }
+        
+        /* Rest of Month Branding */
+        .rest-of-month .period-header {
+            background: linear-gradient(135deg, #1e4d6b 0%, #2980b9 100%);
+        }
+        
+        .rest-of-month {
+            border: 3px solid #2980b9;
+        }
+        
+        .period-content {
+            padding: 25px;
+            background: #f8f9fa;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .period-content b {
+            color: #2c3e50;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        
+        .period-content a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .period-content a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+        
+        .no-events {
+            text-align: center;
+            padding: 80px 20px;
+            color: #6c757d;
+            font-size: 1.3rem;
+        }
+        
+        .no-events-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+        
         @media (max-width: 768px) {
             .header {
                 padding: 40px 20px;
@@ -229,13 +255,11 @@
             
             .stats-container {
                 gap: 15px;
-                flex-direction: column;
-                align-items: center;
             }
             
             .stat-item {
                 padding: 15px 20px;
-                min-width: 200px;
+                min-width: 120px;
             }
             
             .stat-number {
@@ -244,6 +268,15 @@
         }
         
         @media (max-width: 480px) {
+            .stats-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .stat-item {
+                width: 200px;
+            }
+            
             .period-content {
                 padding: 15px;
                 font-size: 0.95rem;
@@ -255,57 +288,156 @@
     <div class="container">
         <div class="header">
             <h1>🎯 Upcoming Networking Events 🎯</h1>
-            <div class="last-updated">Last updated: 08/09/2025 04:01</div>
+            <div class="last-updated" id="lastUpdated">Last updated: Loading...</div>
         </div>
         
         <div class="content">
-            <div class="stats-container">
+            <div class="stats-container" id="statsContainer">
                 <div class="stat-item">
-                    <span class="stat-number" id="totalEvents">11</span>
-                    <span class="stat-label">Total Events</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number" id="thisWeekCount">2</span>
+                    <span class="stat-number" id="thisWeekCount">0</span>
                     <span class="stat-label">This Week</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number" id="nextWeekCount">4</span>
+                    <span class="stat-number" id="nextWeekCount">0</span>
                     <span class="stat-label">Next Week</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number" id="restMonthCount">5</span>
+                    <span class="stat-number" id="restOfMonthCount">0</span>
                     <span class="stat-label">Rest of Month</span>
                 </div>
-            </div>
-            
-            <div class="period-section this-week">
-                <div class="period-header">
-                    <h2>⚡ What's On This Week</h2>
-                </div>
-                <div class="period-content">
-                    🔹 <b>TIC Auckland Site Visit: The Karanga-a-Hape Station Precinct Integration Project</b><br/>📅 Date: 2025-09-10<br/>📍 Location: 53 Pitt Street, Auckland<br/><br/>📄 Summary: <br/>TIC Auckland, together with Auckland Transport and JFC, are pleased to invite a small group of members to visit Project K – The Karanga-a-Hape Station Precinct Integration Project.<br/><br/>🔗 Event Link: <br/><a href="https://portal.infrastructure.org.nz/all-events/events-details/?id=3e10cf3a-8fd8-44f1-b4db-92320ae2f0d7">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Humes Papakura Manufacturing Plant Tour</b><br/>📅 Date: 2025-09-09<br/>📍 Location: 76 Hunua Road, Papakura<br/><br/>📄 Summary: <br/>This tour offers engineers the opportunity to observe the latest concrete pipe manufacturing technologies in New Zealand, including Radial Press (RP) and Vibration Technology (VT). Attendees will gain insight into vertically cast pipe production process and see first hand how precision, consistency, and quality are achieved at scale. The tour also provides a platform for technical discussions around pipeline systems and an overview of the current solutions available in the market.<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event-template/?eventtemplate=4574-humes-papakura-manufacturing-plant-tour&region=IPENZB">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>
+                <div class="stat-item">
+                    <span class="stat-number" id="totalEvents">0</span>
+                    <span class="stat-label">Total Events</span>
                 </div>
             </div>
             
-            <div class="period-section next-week">
-                <div class="period-header">
-                    <h2>📈 What's On Next Week</h2>
+            <div id="allEventsContainer">
+                <!-- This Week Events -->
+                <div class="period-container this-week" id="thisWeekContainer">
+                    <div class="period-header">
+                        <h2>🔥 This Week</h2>
+                    </div>
+                    <div class="period-content" id="thisWeekContent">
+                        <!-- Content will be populated by Power Automate -->
+                    </div>
                 </div>
-                <div class="period-content">
-                    🔹 <b>Raising the Bar - Christchurch</b><br/>📅 Date: 2025-09-16<br/>📍 Location: 380 Colombo Street, Christchurch<br/><br/>📄 Summary: <br/>Ever wished your lecture came with a comfy booth and your favourite pint? Here’s your chance. Raising the Bar is back on Tuesday 16 September! UC is taking 20 smart, funny and thought-provoking talks into 10 bars across Christchurch Central, Redcliffs and Lincoln — with sessions at 6.30pm and 8pm. Pick your venue, pick your talk, and bring a friend! Seats are limited and they fill fast.<br/><br/>🔗 Event Link: <br/><a href="https://www.rtbevent.com/rtbchch2025">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Site Visit: Fisher & Paykel</b><br/>📅 Date: 2025-09-18<br/>📍 Location: 129 Diana Drive, Auckland<br/><br/>📄 Summary: <br/>Take an exclusive look inside a landmark construction project.
-Step inside one of Auckland’s most innovative construction projects with this exclusive site visit to Fisher & Paykel’s purpose-built Global HQ and research and development facility. <br/><br/>🔗 Event Link: <br/><a href="https://buildinginstitute.nz/events/site-visit-fisher-and-paykel/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>SESOC ESE Auckland Networking Lightning Talks</b><br/>📅 Date: 2025-09-18<br/>📍 Location: 2/8 Nugent Street, Auckland<br/><br/>📄 Summary: <br/>The Lightning Talks features our structural engineers in the Auckland chapter. Each engineer will have 5-10 minutes to give a brief presentation which can range from a particular project they're working on to tips and tricks they've learnt from their experience. This will be followed by an open Q&A and a chance to gain more insight into each presenter. Drinks and nibbles will be from 5.30-6pm with presentations/Q&A from 6pm.<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event/sesoc-ese-auckland-network-lightning-talks/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>What are you doing Wellington?</b><br/>📅 Date: 2025-09-18<br/>📍 Location: 40 Taranaki Street, Wellington<br/><br/>📄 Summary: <br/>Join the Wellington Young Engineers for a fun and informative networking event that brings together young professionals from all fields of engineering!<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event/what-are-you-doing-wellington/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>
+
+                <!-- Next Week Events -->
+                <div class="period-container next-week" id="nextWeekContainer">
+                    <div class="period-header">
+                        <h2>📅 Next Week</h2>
+                    </div>
+                    <div class="period-content" id="nextWeekContent">
+                        <!-- Content will be populated by Power Automate -->
+                    </div>
+                </div>
+
+                <!-- Rest of Month Events -->
+                <div class="period-container rest-of-month" id="restOfMonthContainer">
+                    <div class="period-header">
+                        <h2>📆 Rest of the Month</h2>
+                    </div>
+                    <div class="period-content" id="restOfMonthContent">
+                        <!-- Content will be populated by Power Automate -->
+                    </div>
                 </div>
             </div>
             
-            <div class="period-section rest-month">
-                <div class="period-header">
-                    <h2>📆 Rest of the Month</h2>
-                </div>
-                <div class="period-content">
-                    🔹 <b>Humes Papakura Manufacturing Plant Tour</b><br/>📅 Date: 2025-09-23<br/>📍 Location: 76 Hunua Road, Papakura<br/><br/>📄 Summary: <br/>This tour offers engineers the opportunity to observe the latest concrete pipe manufacturing technologies in New Zealand, including Radial Press (RP) and Vibration Technology (VT). Attendees will gain insight into vertically cast pipe production process and see first hand how precision, consistency, and quality are achieved at scale. The tour also provides a platform for technical discussions around pipeline systems and an overview of the current solutions available in the market.<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event-template/?eventtemplate=4574-humes-papakura-manufacturing-plant-tour&region=IPENZB">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Site Visit Makers Construction</b><br/>📅 Date: 2025-09-24<br/>📍 Location: 115 Gracefield Road, Lower Hutt<br/><br/>📄 Summary: <br/>Makers Fabrication connects architecture and construction through digital technology and offsite manufacturing, delivering tailored solutions across modular, hybrid, panelised, and custom joinery projects, including mahi toi/arts integration. Part of the broader Makers group—which includes an architecture studio and upcoming housing development—its 25+ multidisciplinary experts work from a purpose-built workshop to deliver high-quality projects across Aotearoa. The factory site tour offers a glimpse into their workshop, approach, and processes.<br/><br/>🔗 Event Link: <br/><a href="https://buildinginstitute.nz/events/site-visit-makers-construction/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Site Visit: 211 High Street</b><br/>📅 Date: 2025-09-26<br/>📍 Location: 211 High Street, Christchurch<br/><br/>📄 Summary: <br/>Join a site tour of Christchurch’s first commercial European mass timber project, showcasing sustainable construction with glulam beams and CLT panels.<br/><br/>🔗 Event Link: <br/><a href="https://buildinginstitute.nz/events/site-visit-211-high-street/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Canterbury Quiz Night</b><br/>📅 Date: 2025-09-23<br/>📍 Location: 380 Colombo Street, Christchurch<br/><br/>📄 Summary: <br/>Unleash your knowledge at the next Engineering New Zealand quiz night in Canterbury!<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event/canterbury-quiz-night/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Young Engineers Coffee Catch-Up</b><br/>📅 Date: 2025-09-25<br/>📍 Location: 10 Welles Street, Christchurch<br/><br/>📄 Summary: <br/>Join us for a casual coffee catch-up with fellow engineers!<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event/young-engineers-coffee-catch-up/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>
-                </div>
+            <div class="no-events" id="noEventsMessage" style="display: none;">
+                <div class="no-events-icon">😔</div>
+                <h3>No events found</h3>
+                <p>Check back later for upcoming networking events</p>
             </div>
         </div>
     </div>
+
+    <script>
+        // Function to update content from Power Automate variables
+        function updateContent() {
+            // These will be replaced by Power Automate with actual content
+            const thisWeekContent = '🔹 <b>TIC Auckland Site Visit: The Karanga-a-Hape Station Precinct Integration Project</b><br/>📅 Date: 2025-09-10<br/>📍 Location: 53 Pitt Street, Auckland<br/><br/>📄 Summary: <br/>TIC Auckland, together with Auckland Transport and JFC, are pleased to invite a small group of members to visit Project K – The Karanga-a-Hape Station Precinct Integration Project.<br/><br/>🔗 Event Link: <br/><a href="https://portal.infrastructure.org.nz/all-events/events-details/?id=3e10cf3a-8fd8-44f1-b4db-92320ae2f0d7">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Humes Papakura Manufacturing Plant Tour</b><br/>📅 Date: 2025-09-09<br/>📍 Location: 76 Hunua Road, Papakura<br/><br/>📄 Summary: <br/>This tour offers engineers the opportunity to observe the latest concrete pipe manufacturing technologies in New Zealand, including Radial Press (RP) and Vibration Technology (VT). Attendees will gain insight into vertically cast pipe production process and see first hand how precision, consistency, and quality are achieved at scale. The tour also provides a platform for technical discussions around pipeline systems and an overview of the current solutions available in the market.<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event-template/?eventtemplate=4574-humes-papakura-manufacturing-plant-tour&region=IPENZB">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>';
+            const nextWeekContent = '🔹 <b>Raising the Bar - Christchurch</b><br/>📅 Date: 2025-09-16<br/>📍 Location: 380 Colombo Street, Christchurch<br/><br/>📄 Summary: <br/>Ever wished your lecture came with a comfy booth and your favourite pint? Here’s your chance. Raising the Bar is back on Tuesday 16 September! UC is taking 20 smart, funny and thought-provoking talks into 10 bars across Christchurch Central, Redcliffs and Lincoln — with sessions at 6.30pm and 8pm. Pick your venue, pick your talk, and bring a friend! Seats are limited and they fill fast.<br/><br/>🔗 Event Link: <br/><a href="https://www.rtbevent.com/rtbchch2025">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Site Visit: Fisher & Paykel</b><br/>📅 Date: 2025-09-18<br/>📍 Location: 129 Diana Drive, Auckland<br/><br/>📄 Summary: <br/>Take an exclusive look inside a landmark construction project.
+Step inside one of Auckland’s most innovative construction projects with this exclusive site visit to Fisher & Paykel’s purpose-built Global HQ and research and development facility. <br/><br/>🔗 Event Link: <br/><a href="https://buildinginstitute.nz/events/site-visit-fisher-and-paykel/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>SESOC ESE Auckland Networking Lightning Talks</b><br/>📅 Date: 2025-09-18<br/>📍 Location: 2/8 Nugent Street, Auckland<br/><br/>📄 Summary: <br/>The Lightning Talks features our structural engineers in the Auckland chapter. Each engineer will have 5-10 minutes to give a brief presentation which can range from a particular project they're working on to tips and tricks they've learnt from their experience. This will be followed by an open Q&A and a chance to gain more insight into each presenter. Drinks and nibbles will be from 5.30-6pm with presentations/Q&A from 6pm.<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event/sesoc-ese-auckland-network-lightning-talks/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>What are you doing Wellington?</b><br/>📅 Date: 2025-09-18<br/>📍 Location: 40 Taranaki Street, Wellington<br/><br/>📄 Summary: <br/>Join the Wellington Young Engineers for a fun and informative networking event that brings together young professionals from all fields of engineering!<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event/what-are-you-doing-wellington/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>';
+            const restOfMonthContent = '🔹 <b>Humes Papakura Manufacturing Plant Tour</b><br/>📅 Date: 2025-09-23<br/>📍 Location: 76 Hunua Road, Papakura<br/><br/>📄 Summary: <br/>This tour offers engineers the opportunity to observe the latest concrete pipe manufacturing technologies in New Zealand, including Radial Press (RP) and Vibration Technology (VT). Attendees will gain insight into vertically cast pipe production process and see first hand how precision, consistency, and quality are achieved at scale. The tour also provides a platform for technical discussions around pipeline systems and an overview of the current solutions available in the market.<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event-template/?eventtemplate=4574-humes-papakura-manufacturing-plant-tour&region=IPENZB">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Site Visit Makers Construction</b><br/>📅 Date: 2025-09-24<br/>📍 Location: 115 Gracefield Road, Lower Hutt<br/><br/>📄 Summary: <br/>Makers Fabrication connects architecture and construction through digital technology and offsite manufacturing, delivering tailored solutions across modular, hybrid, panelised, and custom joinery projects, including mahi toi/arts integration. Part of the broader Makers group—which includes an architecture studio and upcoming housing development—its 25+ multidisciplinary experts work from a purpose-built workshop to deliver high-quality projects across Aotearoa. The factory site tour offers a glimpse into their workshop, approach, and processes.<br/><br/>🔗 Event Link: <br/><a href="https://buildinginstitute.nz/events/site-visit-makers-construction/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Site Visit: 211 High Street</b><br/>📅 Date: 2025-09-26<br/>📍 Location: 211 High Street, Christchurch<br/><br/>📄 Summary: <br/>Join a site tour of Christchurch’s first commercial European mass timber project, showcasing sustainable construction with glulam beams and CLT panels.<br/><br/>🔗 Event Link: <br/><a href="https://buildinginstitute.nz/events/site-visit-211-high-street/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Canterbury Quiz Night</b><br/>📅 Date: 2025-09-23<br/>📍 Location: 380 Colombo Street, Christchurch<br/><br/>📄 Summary: <br/>Unleash your knowledge at the next Engineering New Zealand quiz night in Canterbury!<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event/canterbury-quiz-night/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Young Engineers Coffee Catch-Up</b><br/>📅 Date: 2025-09-25<br/>📍 Location: 10 Welles Street, Christchurch<br/><br/>📄 Summary: <br/>Join us for a casual coffee catch-up with fellow engineers!<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event/young-engineers-coffee-catch-up/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>';
+            
+            // Update last updated timestamp
+            document.getElementById('lastUpdated').textContent = 'Last updated: ' + new Date().toLocaleString();
+            
+            // Update content sections
+            updateSection('thisWeek', thisWeekContent);
+            updateSection('nextWeek', nextWeekContent);
+            updateSection('restOfMonth', restOfMonthContent);
+            
+            // Update statistics
+            updateStats();
+            
+            // Check if we have any content at all
+            checkForContent();
+        }
+        
+        function updateSection(period, content) {
+            const contentElement = document.getElementById(period + 'Content');
+            const containerElement = document.getElementById(period + 'Container');
+            
+            if (content && content.trim() !== '' && content !== '🔹 <b>TIC Auckland Site Visit: The Karanga-a-Hape Station Precinct Integration Project</b><br/>📅 Date: 2025-09-10<br/>📍 Location: 53 Pitt Street, Auckland<br/><br/>📄 Summary: <br/>TIC Auckland, together with Auckland Transport and JFC, are pleased to invite a small group of members to visit Project K – The Karanga-a-Hape Station Precinct Integration Project.<br/><br/>🔗 Event Link: <br/><a href="https://portal.infrastructure.org.nz/all-events/events-details/?id=3e10cf3a-8fd8-44f1-b4db-92320ae2f0d7">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Humes Papakura Manufacturing Plant Tour</b><br/>📅 Date: 2025-09-09<br/>📍 Location: 76 Hunua Road, Papakura<br/><br/>📄 Summary: <br/>This tour offers engineers the opportunity to observe the latest concrete pipe manufacturing technologies in New Zealand, including Radial Press (RP) and Vibration Technology (VT). Attendees will gain insight into vertically cast pipe production process and see first hand how precision, consistency, and quality are achieved at scale. The tour also provides a platform for technical discussions around pipeline systems and an overview of the current solutions available in the market.<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event-template/?eventtemplate=4574-humes-papakura-manufacturing-plant-tour&region=IPENZB">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>' && content !== '🔹 <b>Raising the Bar - Christchurch</b><br/>📅 Date: 2025-09-16<br/>📍 Location: 380 Colombo Street, Christchurch<br/><br/>📄 Summary: <br/>Ever wished your lecture came with a comfy booth and your favourite pint? Here’s your chance. Raising the Bar is back on Tuesday 16 September! UC is taking 20 smart, funny and thought-provoking talks into 10 bars across Christchurch Central, Redcliffs and Lincoln — with sessions at 6.30pm and 8pm. Pick your venue, pick your talk, and bring a friend! Seats are limited and they fill fast.<br/><br/>🔗 Event Link: <br/><a href="https://www.rtbevent.com/rtbchch2025">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Site Visit: Fisher & Paykel</b><br/>📅 Date: 2025-09-18<br/>📍 Location: 129 Diana Drive, Auckland<br/><br/>📄 Summary: <br/>Take an exclusive look inside a landmark construction project.
+Step inside one of Auckland’s most innovative construction projects with this exclusive site visit to Fisher & Paykel’s purpose-built Global HQ and research and development facility. <br/><br/>🔗 Event Link: <br/><a href="https://buildinginstitute.nz/events/site-visit-fisher-and-paykel/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>SESOC ESE Auckland Networking Lightning Talks</b><br/>📅 Date: 2025-09-18<br/>📍 Location: 2/8 Nugent Street, Auckland<br/><br/>📄 Summary: <br/>The Lightning Talks features our structural engineers in the Auckland chapter. Each engineer will have 5-10 minutes to give a brief presentation which can range from a particular project they're working on to tips and tricks they've learnt from their experience. This will be followed by an open Q&A and a chance to gain more insight into each presenter. Drinks and nibbles will be from 5.30-6pm with presentations/Q&A from 6pm.<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event/sesoc-ese-auckland-network-lightning-talks/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>What are you doing Wellington?</b><br/>📅 Date: 2025-09-18<br/>📍 Location: 40 Taranaki Street, Wellington<br/><br/>📄 Summary: <br/>Join the Wellington Young Engineers for a fun and informative networking event that brings together young professionals from all fields of engineering!<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event/what-are-you-doing-wellington/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>' && content !== '🔹 <b>Humes Papakura Manufacturing Plant Tour</b><br/>📅 Date: 2025-09-23<br/>📍 Location: 76 Hunua Road, Papakura<br/><br/>📄 Summary: <br/>This tour offers engineers the opportunity to observe the latest concrete pipe manufacturing technologies in New Zealand, including Radial Press (RP) and Vibration Technology (VT). Attendees will gain insight into vertically cast pipe production process and see first hand how precision, consistency, and quality are achieved at scale. The tour also provides a platform for technical discussions around pipeline systems and an overview of the current solutions available in the market.<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event-template/?eventtemplate=4574-humes-papakura-manufacturing-plant-tour&region=IPENZB">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Site Visit Makers Construction</b><br/>📅 Date: 2025-09-24<br/>📍 Location: 115 Gracefield Road, Lower Hutt<br/><br/>📄 Summary: <br/>Makers Fabrication connects architecture and construction through digital technology and offsite manufacturing, delivering tailored solutions across modular, hybrid, panelised, and custom joinery projects, including mahi toi/arts integration. Part of the broader Makers group—which includes an architecture studio and upcoming housing development—its 25+ multidisciplinary experts work from a purpose-built workshop to deliver high-quality projects across Aotearoa. The factory site tour offers a glimpse into their workshop, approach, and processes.<br/><br/>🔗 Event Link: <br/><a href="https://buildinginstitute.nz/events/site-visit-makers-construction/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Site Visit: 211 High Street</b><br/>📅 Date: 2025-09-26<br/>📍 Location: 211 High Street, Christchurch<br/><br/>📄 Summary: <br/>Join a site tour of Christchurch’s first commercial European mass timber project, showcasing sustainable construction with glulam beams and CLT panels.<br/><br/>🔗 Event Link: <br/><a href="https://buildinginstitute.nz/events/site-visit-211-high-street/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Canterbury Quiz Night</b><br/>📅 Date: 2025-09-23<br/>📍 Location: 380 Colombo Street, Christchurch<br/><br/>📄 Summary: <br/>Unleash your knowledge at the next Engineering New Zealand quiz night in Canterbury!<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event/canterbury-quiz-night/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Young Engineers Coffee Catch-Up</b><br/>📅 Date: 2025-09-25<br/>📍 Location: 10 Welles Street, Christchurch<br/><br/>📄 Summary: <br/>Join us for a casual coffee catch-up with fellow engineers!<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event/young-engineers-coffee-catch-up/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>') {
+                contentElement.innerHTML = content;
+                containerElement.classList.add('has-content');
+            } else {
+                containerElement.classList.remove('has-content');
+            }
+        }
+        
+        function countEvents(content) {
+            if (!content || content.trim() === '' || content.startsWith('{{MessageContent')) {
+                return 0;
+            }
+            
+            // Count events by looking for the bullet point pattern (🔹)
+            const matches = content.match(/🔹/g);
+            return matches ? matches.length : 0;
+        }
+        
+        function updateStats() {
+            const thisWeekContent = document.getElementById('thisWeekContent').innerHTML;
+            const nextWeekContent = document.getElementById('nextWeekContent').innerHTML;
+            const restOfMonthContent = document.getElementById('restOfMonthContent').innerHTML;
+            
+            const thisWeekCount = countEvents(thisWeekContent);
+            const nextWeekCount = countEvents(nextWeekContent);
+            const restOfMonthCount = countEvents(restOfMonthContent);
+            const totalCount = thisWeekCount + nextWeekCount + restOfMonthCount;
+            
+            document.getElementById('thisWeekCount').textContent = thisWeekCount;
+            document.getElementById('nextWeekCount').textContent = nextWeekCount;
+            document.getElementById('restOfMonthCount').textContent = restOfMonthCount;
+            document.getElementById('totalEvents').textContent = totalCount;
+        }
+        
+        function checkForContent() {
+            const thisWeekHasContent = document.getElementById('thisWeekContainer').classList.contains('has-content');
+            const nextWeekHasContent = document.getElementById('nextWeekContainer').classList.contains('has-content');
+            const restOfMonthHasContent = document.getElementById('restOfMonthContainer').classList.contains('has-content');
+            
+            const allEventsContainer = document.getElementById('allEventsContainer');
+            const noEventsMessage = document.getElementById('noEventsMessage');
+            
+            if (thisWeekHasContent || nextWeekHasContent || restOfMonthHasContent) {
+                allEventsContainer.style.display = 'block';
+                noEventsMessage.style.display = 'none';
+            } else {
+                allEventsContainer.style.display = 'none';
+                noEventsMessage.style.display = 'block';
+            }
+        }
+        
+        // Initialize content when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            updateContent();
+        });
+        
+        // For Power Automate: Call this function to refresh content
+        window.refreshContent = updateContent;
+    </script>
 </body>
 </html>
