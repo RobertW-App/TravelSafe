@@ -457,6 +457,17 @@ Step inside one of Auckland’s most innovative construction projects with this 
         
         // For Power Automate: Call this function to refresh content
         window.refreshContent = updateContent;
+// Initialize content when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    updateContent();
+});
+
+// Also try to update content immediately in case DOMContentLoaded already fired
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateContent);
+} else {
+    updateContent();
+}
     </script>
 </body>
 </html>
