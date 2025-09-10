@@ -73,17 +73,40 @@
             flex-wrap: wrap;
         }
         
+        .filter-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin: 0 20px;
+        }
+        
+        .filter-label {
+            font-weight: 600;
+            color: #333;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
         .filter-btn {
             background: white;
             border: 2px solid #667eea;
             color: #667eea;
-            padding: 12px 25px;
-            border-radius: 25px;
+            padding: 10px 20px;
+            border-radius: 20px;
             cursor: pointer;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             transition: all 0.3s ease;
-            min-width: 140px;
+            min-width: 120px;
             text-align: center;
         }
         
@@ -98,6 +121,28 @@
             background: #667eea;
             color: white;
             box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .company-filter {
+            margin-top: 20px;
+        }
+        
+        .company-select {
+            background: white;
+            border: 2px solid #667eea;
+            color: #333;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            min-width: 200px;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .company-select:focus {
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
         }
         
         .stats-container {
@@ -171,6 +216,23 @@
             text-decoration: underline;
         }
         
+        .event-item {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #eee;
+            transition: all 0.3s ease;
+        }
+        
+        .event-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .event-item.hidden {
+            display: none;
+        }
+        
         .no-events {
             text-align: center;
             color: #6c757d;
@@ -184,6 +246,28 @@
         .no-events.hidden {
             display: none;
         }
+        
+        .active-filters {
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 15px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .active-filters.hidden {
+            display: none;
+        }
+        
+        .filter-tag {
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin: 2px;
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
@@ -194,12 +278,32 @@
         </div>
         
         <div class="content">
-            <!-- Filter Buttons -->
+            <!-- Filter Container -->
             <div class="filter-container">
-                <button class="filter-btn active" data-filter="all">📊 All Events</button>
-                <button class="filter-btn" data-filter="this-week">⚡ This Week</button>
-                <button class="filter-btn" data-filter="next-week">📈 Next Week</button>
-                <button class="filter-btn" data-filter="rest-month">📅 Rest of Month</button>
+                <!-- Time Period Filter -->
+                <div class="filter-section">
+                    <div class="filter-label">📅 Time Period</div>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all" data-type="time">📊 All Events</button>
+                        <button class="filter-btn" data-filter="this-week" data-type="time">⚡ This Week</button>
+                        <button class="filter-btn" data-filter="next-week" data-type="time">📈 Next Week</button>
+                        <button class="filter-btn" data-filter="rest-month" data-type="time">📅 Rest of Month</button>
+                    </div>
+                </div>
+                
+                <!-- Company Filter -->
+                <div class="filter-section company-filter">
+                    <div class="filter-label">🏢 Filter by Company</div>
+                    <select class="company-select" id="company-filter">
+                        <option value="all">All Companies</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Active Filters Display -->
+            <div class="active-filters hidden" id="active-filters">
+                <strong>Active Filters:</strong>
+                <div id="filter-tags"></div>
             </div>
             
             <!-- Statistics Section -->
@@ -238,51 +342,174 @@ This site visit provides an opportunity to explore Christchurch Hospital’s new
             
             
             <!-- Dynamic No Events Message for Filters -->
-            <div class="no-events hidden" id="filter-no-events">No events found for the selected filter.</div>
+            <div class="no-events hidden" id="filter-no-events">No events found for the selected filters.</div>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const filterBtns = document.querySelectorAll('.filter-btn');
+            const timeFilterBtns = document.querySelectorAll('[data-type="time"]');
+            const companySelect = document.getElementById('company-filter');
             const eventsSections = document.querySelectorAll('.events-section');
             const filterNoEventsMsg = document.getElementById('filter-no-events');
+            const activeFiltersDiv = document.getElementById('active-filters');
+            const filterTagsDiv = document.getElementById('filter-tags');
             
-            filterBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const filter = this.getAttribute('data-filter');
-                    
-                    // Update active button
-                    filterBtns.forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    // Filter events
-                    let visibleCount = 0;
-                    
-                    if (filter === 'all') {
-                        eventsSections.forEach(section => {
-                            section.classList.remove('hidden');
-                            visibleCount++;
-                        });
-                        filterNoEventsMsg.classList.add('hidden');
-                    } else {
-                        eventsSections.forEach(section => {
-                            if (section.getAttribute('data-category') === filter) {
-                                section.classList.remove('hidden');
-                                visibleCount++;
-                            } else {
-                                section.classList.add('hidden');
+            let currentTimeFilter = 'all';
+            let currentCompanyFilter = 'all';
+            let allCompanies = new Set();
+            
+            // Extract companies from events and populate dropdown
+            function extractCompanies() {
+                eventsSections.forEach(section => {
+                    const content = section.innerHTML;
+                    const companyMatches = content.match(/🏢 Company: ([^<\n]+)/g);
+                    if (companyMatches) {
+                        companyMatches.forEach(match => {
+                            const company = match.replace('🏢 Company: ', '').trim();
+                            if (company && company !== '') {
+                                allCompanies.add(company);
                             }
                         });
+                    }
+                });
+                
+                // Populate company dropdown
+                const sortedCompanies = Array.from(allCompanies).sort();
+                sortedCompanies.forEach(company => {
+                    const option = document.createElement('option');
+                    option.value = company;
+                    option.textContent = company;
+                    companySelect.appendChild(option);
+                });
+            }
+            
+            // Parse events into individual items for better filtering
+            function parseEventsIntoItems() {
+                eventsSections.forEach(section => {
+                    const content = section.querySelector('.events-content');
+                    if (content) {
+                        const eventText = content.innerHTML;
+                        const events = eventText.split('🔹').filter(event => event.trim() !== '');
                         
-                        if (visibleCount === 0) {
-                            filterNoEventsMsg.classList.remove('hidden');
-                        } else {
-                            filterNoEventsMsg.classList.add('hidden');
+                        if (events.length > 0) {
+                            content.innerHTML = '';
+                            events.forEach(event => {
+                                const eventDiv = document.createElement('div');
+                                eventDiv.className = 'event-item';
+                                eventDiv.innerHTML = '🔹' + event;
+                                content.appendChild(eventDiv);
+                            });
                         }
                     }
                 });
+            }
+            
+            // Update active filters display
+            function updateActiveFilters() {
+                const filters = [];
+                
+                if (currentTimeFilter !== 'all') {
+                    const timeBtn = document.querySelector(`[data-filter="${currentTimeFilter}"][data-type="time"]`);
+                    if (timeBtn) {
+                        filters.push(timeBtn.textContent.trim());
+                    }
+                }
+                
+                if (currentCompanyFilter !== 'all') {
+                    filters.push(`Company: ${currentCompanyFilter}`);
+                }
+                
+                if (filters.length > 0) {
+                    filterTagsDiv.innerHTML = filters.map(filter => 
+                        `<span class="filter-tag">${filter}</span>`
+                    ).join('');
+                    activeFiltersDiv.classList.remove('hidden');
+                } else {
+                    activeFiltersDiv.classList.add('hidden');
+                }
+            }
+            
+            // Apply filters
+            function applyFilters() {
+                let visibleSections = 0;
+                
+                eventsSections.forEach(section => {
+                    const category = section.getAttribute('data-category');
+                    const eventItems = section.querySelectorAll('.event-item');
+                    let sectionHasVisibleEvents = false;
+                    
+                    // Check time filter
+                    const timeMatch = currentTimeFilter === 'all' || category === currentTimeFilter;
+                    
+                    if (timeMatch) {
+                        eventItems.forEach(item => {
+                            let companyMatch = true;
+                            
+                            // Check company filter
+                            if (currentCompanyFilter !== 'all') {
+                                const companyMatch_regex = item.innerHTML.match(/🏢 Company: ([^<\n]+)/);
+                                if (companyMatch_regex) {
+                                    const itemCompany = companyMatch_regex[1].trim();
+                                    companyMatch = itemCompany === currentCompanyFilter;
+                                } else {
+                                    companyMatch = false;
+                                }
+                            }
+                            
+                            if (companyMatch) {
+                                item.classList.remove('hidden');
+                                sectionHasVisibleEvents = true;
+                            } else {
+                                item.classList.add('hidden');
+                            }
+                        });
+                        
+                        if (sectionHasVisibleEvents) {
+                            section.classList.remove('hidden');
+                            visibleSections++;
+                        } else {
+                            section.classList.add('hidden');
+                        }
+                    } else {
+                        section.classList.add('hidden');
+                        eventItems.forEach(item => item.classList.add('hidden'));
+                    }
+                });
+                
+                // Show/hide no events message
+                if (visibleSections === 0) {
+                    filterNoEventsMsg.classList.remove('hidden');
+                } else {
+                    filterNoEventsMsg.classList.add('hidden');
+                }
+                
+                updateActiveFilters();
+            }
+            
+            // Time filter event listeners
+            timeFilterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    currentTimeFilter = this.getAttribute('data-filter');
+                    
+                    // Update active button
+                    timeFilterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    applyFilters();
+                });
             });
+            
+            // Company filter event listener
+            companySelect.addEventListener('change', function() {
+                currentCompanyFilter = this.value;
+                applyFilters();
+            });
+            
+            // Initialize
+            parseEventsIntoItems();
+            extractCompanies();
+            applyFilters();
         });
     </script>
 </body>
