@@ -65,6 +65,41 @@
             padding: 40px;
         }
         
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            background: white;
+            border: 2px solid #667eea;
+            color: #667eea;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            min-width: 140px;
+            text-align: center;
+        }
+        
+        .filter-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+        
         .stats-container {
             display: flex;
             justify-content: center;
@@ -104,6 +139,11 @@
             padding: 30px;
             margin: 30px 0;
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .events-section.hidden {
+            display: none;
         }
         
         .section-header {
@@ -136,6 +176,13 @@
             color: #6c757d;
             font-style: italic;
             padding: 40px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        .no-events.hidden {
+            display: none;
         }
     </style>
 </head>
@@ -143,45 +190,100 @@
     <div class="container">
         <div class="header">
             <h1>🎯 Upcoming Networking Events 🎯</h1>
-            <div class="last-updated">Last updated: 2025-09-10T01:44:57.9988915Z</div>
+            <div class="last-updated">Last updated: 2025-09-10T01:56:43.7451049Z</div>
         </div>
         
         <div class="content">
+            <!-- Filter Buttons -->
+            <div class="filter-container">
+                <button class="filter-btn active" data-filter="all">📊 All Events</button>
+                <button class="filter-btn" data-filter="this-week">⚡ This Week</button>
+                <button class="filter-btn" data-filter="next-week">📈 Next Week</button>
+                <button class="filter-btn" data-filter="rest-month">📅 Rest of Month</button>
+            </div>
+            
             <!-- Statistics Section -->
             <div class="stats-container">
                 <div class="stat-item">
-                    <span class="stat-number">7568</span>
+                    <span class="stat-number">12</span>
                     <span class="stat-label">Total Events</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number">1192</span>
+                    <span class="stat-number">2</span>
                     <span class="stat-label">This Week</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number">2934</span>
+                    <span class="stat-number">5</span>
                     <span class="stat-label">Next Week</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number">3442</span>
+                    <span class="stat-number">5</span>
                     <span class="stat-label">Coming Month</span>
                 </div>
             </div>
             
             <!-- This Week Section -->
-            <div class="events-section"><div class="section-header">⚡ This Week</div><div class="events-content">🔹 <b>TIC Auckland Site Visit: The Karanga-a-Hape Station Precinct Integration Project</b><br/>📅 Date: 2025-09-10<br/>📍 Location: 53 Pitt Street, Auckland<br/><br/>📄 Summary: <br/>TIC Auckland, together with Auckland Transport and JFC, are pleased to invite a small group of members to visit Project K – The Karanga-a-Hape Station Precinct Integration Project.<br/><br/>🔗 Event Link: <br/><a href="https://portal.infrastructure.org.nz/all-events/events-details/?id=3e10cf3a-8fd8-44f1-b4db-92320ae2f0d7">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Raising the Bar - Christchurch</b><br/>📅 Date: 2025-09-16<br/>📍 Location: 380 Colombo Street, Christchurch<br/><br/>📄 Summary: <br/>Ever wished your lecture came with a comfy booth and your favourite pint? Here’s your chance. Raising the Bar is back on Tuesday 16 September! UC is taking 20 smart, funny and thought-provoking talks into 10 bars across Christchurch Central, Redcliffs and Lincoln — with sessions at 6.30pm and 8pm. Pick your venue, pick your talk, and bring a friend! Seats are limited and they fill fast.<br/><br/>🔗 Event Link: <br/><a href="https://www.rtbevent.com/rtbchch2025">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/></div></div>
+            <div class="events-section" data-category="this-week"><div class="section-header">⚡ This Week</div><div class="events-content">🔹 <b>TIC Auckland Site Visit: The Karanga-a-Hape Station Precinct Integration Project</b><br/>📅 Date: 2025-09-10<br/>📍 Location: 53 Pitt Street, Auckland<br/><br/>📄 Summary: <br/>TIC Auckland, together with Auckland Transport and JFC, are pleased to invite a small group of members to visit Project K – The Karanga-a-Hape Station Precinct Integration Project.<br/><br/>🔗 Event Link: <br/><a href="https://portal.infrastructure.org.nz/all-events/events-details/?id=3e10cf3a-8fd8-44f1-b4db-92320ae2f0d7">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Raising the Bar - Christchurch</b><br/>📅 Date: 2025-09-16<br/>📍 Location: 380 Colombo Street, Christchurch<br/><br/>📄 Summary: <br/>Ever wished your lecture came with a comfy booth and your favourite pint? Here’s your chance. Raising the Bar is back on Tuesday 16 September! UC is taking 20 smart, funny and thought-provoking talks into 10 bars across Christchurch Central, Redcliffs and Lincoln — with sessions at 6.30pm and 8pm. Pick your venue, pick your talk, and bring a friend! Seats are limited and they fill fast.<br/><br/>🔗 Event Link: <br/><a href="https://www.rtbevent.com/rtbchch2025">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/></div></div>
             
             <!-- Next Week Section -->
-            <div class="events-section"><div class="section-header">📈 Next Week</div><div class="events-content">🔹 <b>Humes Papakura Manufacturing Plant Tour</b><br/>📅 Date: 2025-09-23<br/>📍 Location: 76 Hunua Road, Papakura<br/><br/>📄 Summary: <br/>This tour offers engineers the opportunity to observe the latest concrete pipe manufacturing technologies in New Zealand, including Radial Press (RP) and Vibration Technology (VT). Attendees will gain insight into vertically cast pipe production process and see first hand how precision, consistency, and quality are achieved at scale. The tour also provides a platform for technical discussions around pipeline systems and an overview of the current solutions available in the market.<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event-template/?eventtemplate=4574-humes-papakura-manufacturing-plant-tour&region=IPENZB">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Site Visit: Fisher & Paykel</b><br/>📅 Date: 2025-09-18<br/>📍 Location: 129 Diana Drive, Auckland<br/><br/>📄 Summary: <br/>Take an exclusive look inside a landmark construction project.
+            <div class="events-section" data-category="next-week"><div class="section-header">📈 Next Week</div><div class="events-content">🔹 <b>Humes Papakura Manufacturing Plant Tour</b><br/>📅 Date: 2025-09-23<br/>📍 Location: 76 Hunua Road, Papakura<br/><br/>📄 Summary: <br/>This tour offers engineers the opportunity to observe the latest concrete pipe manufacturing technologies in New Zealand, including Radial Press (RP) and Vibration Technology (VT). Attendees will gain insight into vertically cast pipe production process and see first hand how precision, consistency, and quality are achieved at scale. The tour also provides a platform for technical discussions around pipeline systems and an overview of the current solutions available in the market.<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event-template/?eventtemplate=4574-humes-papakura-manufacturing-plant-tour&region=IPENZB">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Site Visit: Fisher & Paykel</b><br/>📅 Date: 2025-09-18<br/>📍 Location: 129 Diana Drive, Auckland<br/><br/>📄 Summary: <br/>Take an exclusive look inside a landmark construction project.
 Step inside one of Auckland’s most innovative construction projects with this exclusive site visit to Fisher & Paykel’s purpose-built Global HQ and research and development facility. <br/><br/>🔗 Event Link: <br/><a href="https://buildinginstitute.nz/events/site-visit-fisher-and-paykel/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>SESOC ESE Auckland Networking Lightning Talks</b><br/>📅 Date: 2025-09-18<br/>📍 Location: 2/8 Nugent Street, Auckland<br/><br/>📄 Summary: <br/>The Lightning Talks features our structural engineers in the Auckland chapter. Each engineer will have 5-10 minutes to give a brief presentation which can range from a particular project they're working on to tips and tricks they've learnt from their experience. This will be followed by an open Q&A and a chance to gain more insight into each presenter. Drinks and nibbles will be from 5.30-6pm with presentations/Q&A from 6pm.<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event/sesoc-ese-auckland-network-lightning-talks/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>What are you doing Wellington?</b><br/>📅 Date: 2025-09-18<br/>📍 Location: 40 Taranaki Street, Wellington<br/><br/>📄 Summary: <br/>Join the Wellington Young Engineers for a fun and informative networking event that brings together young professionals from all fields of engineering!<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event/what-are-you-doing-wellington/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Canterbury Quiz Night</b><br/>📅 Date: 2025-09-23<br/>📍 Location: 380 Colombo Street, Christchurch<br/><br/>📄 Summary: <br/>Unleash your knowledge at the next Engineering New Zealand quiz night in Canterbury!<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event/canterbury-quiz-night/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/></div></div>
             
             <!-- Rest of Month Section -->
-            <div class="events-section"><div class="section-header">📅 Rest of Month</div><div class="events-content">🔹 <b>Site Visit Makers Construction</b><br/>📅 Date: 2025-09-24<br/>📍 Location: 115 Gracefield Road, Lower Hutt<br/><br/>📄 Summary: <br/>Makers Fabrication connects architecture and construction through digital technology and offsite manufacturing, delivering tailored solutions across modular, hybrid, panelised, and custom joinery projects, including mahi toi/arts integration. Part of the broader Makers group—which includes an architecture studio and upcoming housing development—its 25+ multidisciplinary experts work from a purpose-built workshop to deliver high-quality projects across Aotearoa. The factory site tour offers a glimpse into their workshop, approach, and processes.<br/><br/>🔗 Event Link: <br/><a href="https://buildinginstitute.nz/events/site-visit-makers-construction/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Site Visit: 211 High Street</b><br/>📅 Date: 2025-09-26<br/>📍 Location: 211 High Street, Christchurch<br/><br/>📄 Summary: <br/>Join a site tour of Christchurch’s first commercial European mass timber project, showcasing sustainable construction with glulam beams and CLT panels.<br/><br/>🔗 Event Link: <br/><a href="https://buildinginstitute.nz/events/site-visit-211-high-street/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Young Engineers Coffee Catch-Up</b><br/>📅 Date: 2025-09-25<br/>📍 Location: 10 Welles Street, Christchurch<br/><br/>📄 Summary: <br/>Join us for a casual coffee catch-up with fellow engineers!<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event/young-engineers-coffee-catch-up/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>WIN Wellington - Te Whare Wai Para Nuku (WCC Sludge Minimisation Facility) Site Visit</b><br/>📅 Date: 2025-10-08<br/>📍 Location: Freight Drive, Wellington<br/><br/>📄 Summary: <br/>Join the Wellington Chapter of the Women's Infrastructure Network on Tuesday 7 October from 12:30pm to see the great progress of the WCC Sludge Minimisation Facility since our event in February ’24. 
+            <div class="events-section" data-category="rest-month"><div class="section-header">📅 Rest of Month</div><div class="events-content">🔹 <b>Site Visit Makers Construction</b><br/>📅 Date: 2025-09-24<br/>📍 Location: 115 Gracefield Road, Lower Hutt<br/><br/>📄 Summary: <br/>Makers Fabrication connects architecture and construction through digital technology and offsite manufacturing, delivering tailored solutions across modular, hybrid, panelised, and custom joinery projects, including mahi toi/arts integration. Part of the broader Makers group—which includes an architecture studio and upcoming housing development—its 25+ multidisciplinary experts work from a purpose-built workshop to deliver high-quality projects across Aotearoa. The factory site tour offers a glimpse into their workshop, approach, and processes.<br/><br/>🔗 Event Link: <br/><a href="https://buildinginstitute.nz/events/site-visit-makers-construction/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Site Visit: 211 High Street</b><br/>📅 Date: 2025-09-26<br/>📍 Location: 211 High Street, Christchurch<br/><br/>📄 Summary: <br/>Join a site tour of Christchurch’s first commercial European mass timber project, showcasing sustainable construction with glulam beams and CLT panels.<br/><br/>🔗 Event Link: <br/><a href="https://buildinginstitute.nz/events/site-visit-211-high-street/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Young Engineers Coffee Catch-Up</b><br/>📅 Date: 2025-09-25<br/>📍 Location: 10 Welles Street, Christchurch<br/><br/>📄 Summary: <br/>Join us for a casual coffee catch-up with fellow engineers!<br/><br/>🔗 Event Link: <br/><a href="https://www.engineeringnz.org/courses-events/event/young-engineers-coffee-catch-up/">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>WIN Wellington - Te Whare Wai Para Nuku (WCC Sludge Minimisation Facility) Site Visit</b><br/>📅 Date: 2025-10-08<br/>📍 Location: Freight Drive, Wellington<br/><br/>📄 Summary: <br/>Join the Wellington Chapter of the Women's Infrastructure Network on Tuesday 7 October from 12:30pm to see the great progress of the WCC Sludge Minimisation Facility since our event in February ’24. 
 The McConnell Dowell/HEB Construction JV with Beca as Design partner on behalf of Wellington City Council are constructing a world-class facility, the first of its type in Aotearoa. Te Whare Wai Para Nuku is located below the existing Moa Point Wastewater Treatment plant. It is designed to reduce the amount of sewage sludge created though the wastewater treatment process, and turn it into a safe, reusable product. This will allow Wellington to reduce its carbon emissions and waste to landfill.<br/><br/>🔗 Event Link: <br/><a href="https://portal.infrastructure.org.nz/all-events/events-details/?id=d7ec674d-439c-4c52-85dc-7274d6d8cef6">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/>🔹 <b>Site Visit: TIC Canterbury - Christchurch Hospital Biomass Energy Centre and Smart Buildings</b><br/>📅 Date: 2025-10-08<br/>📍 Location: 33 St Asaph St, Christchurch<br/><br/>📄 Summary: <br/>Join TIC Canterbury on Wednesday 8 October from 1:30pm for a guided tour of the Christchurch Hospital's Biomass Energy Centre.
 This site visit provides an opportunity to explore Christchurch Hospital’s new Biomass Energy Centre and advanced smart building automation and optimization tools, demonstrating a pathway toward a more sustainable and resilient future.<br/><br/>🔗 Event Link: <br/><a href="https://portal.infrastructure.org.nz/all-events/events-details/?id=5f609ab7-8530-4bec-81af-e2c3703bc854">Link</a><br/><br/>━━━━⊱⋆⊰━━━━<br/><br/></div></div>
             
             <!-- No Events Message -->
             
+            
+            <!-- Dynamic No Events Message for Filters -->
+            <div class="no-events hidden" id="filter-no-events">No events found for the selected filter.</div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const eventsSections = document.querySelectorAll('.events-section');
+            const filterNoEventsMsg = document.getElementById('filter-no-events');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const filter = this.getAttribute('data-filter');
+                    
+                    // Update active button
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Filter events
+                    let visibleCount = 0;
+                    
+                    if (filter === 'all') {
+                        eventsSections.forEach(section => {
+                            section.classList.remove('hidden');
+                            visibleCount++;
+                        });
+                        filterNoEventsMsg.classList.add('hidden');
+                    } else {
+                        eventsSections.forEach(section => {
+                            if (section.getAttribute('data-category') === filter) {
+                                section.classList.remove('hidden');
+                                visibleCount++;
+                            } else {
+                                section.classList.add('hidden');
+                            }
+                        });
+                        
+                        if (visibleCount === 0) {
+                            filterNoEventsMsg.classList.remove('hidden');
+                        } else {
+                            filterNoEventsMsg.classList.add('hidden');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
