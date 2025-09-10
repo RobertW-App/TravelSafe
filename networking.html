@@ -20,7 +20,7 @@
         }
         
         .container {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -34,15 +34,26 @@
         .header {
             background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white;
-            padding: 50px 40px;
+            padding: 60px 40px;
             text-align: center;
             position: relative;
             overflow: hidden;
         }
         
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+        
         .header h1 {
-            font-size: 3rem;
-            margin-bottom: 15px;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
             font-weight: 800;
             position: relative;
             z-index: 2;
@@ -50,141 +61,214 @@
         }
         
         .last-updated {
-            opacity: 0.9;
-            font-size: 1rem;
+            opacity: 0.95;
+            font-size: 1.1rem;
             position: relative;
             z-index: 2;
-            background: rgba(255,255,255,0.1);
-            padding: 8px 16px;
-            border-radius: 20px;
+            background: rgba(255,255,255,0.15);
+            padding: 12px 24px;
+            border-radius: 25px;
             display: inline-block;
-            margin-top: 10px;
+            margin-top: 15px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.2);
         }
         
         .content {
-            padding: 40px;
+            padding: 50px;
         }
         
+        /* Improved Filter Container - Equal Height */
         .filter-container {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 30px 0;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 40px 0 50px 0;
+            align-items: start;
         }
         
         .filter-section {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 2px solid rgba(102, 126, 234, 0.1);
+            transition: all 0.3s ease;
+            min-height: 160px;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            margin: 0 20px;
+            justify-content: space-between;
+        }
+        
+        .filter-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.15);
+            border-color: rgba(102, 126, 234, 0.3);
         }
         
         .filter-label {
-            font-weight: 600;
-            color: #333;
-            font-size: 0.9rem;
+            font-weight: 700;
+            color: #2a5298;
+            font-size: 1.1rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.2px;
+            margin-bottom: 20px;
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.2);
         }
         
         .filter-buttons {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             flex-wrap: wrap;
             justify-content: center;
+            flex: 1;
+            align-items: center;
         }
         
         .filter-btn {
-            background: white;
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8edff 100%);
             border: 2px solid #667eea;
             color: #667eea;
-            padding: 10px 20px;
-            border-radius: 20px;
+            padding: 12px 18px;
+            border-radius: 25px;
             cursor: pointer;
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
-            min-width: 120px;
+            min-width: 130px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+        
+        .filter-btn:hover::before {
+            left: 100%;
         }
         
         .filter-btn:hover {
-            background: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #5a6fd8 100%);
             color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
         }
         
         .filter-btn.active {
-            background: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #5a6fd8 100%);
             color: white;
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
-        }
-        
-        .company-filter {
-            margin-top: 20px;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
         }
         
         .company-select {
-            background: white;
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8edff 100%);
             border: 2px solid #667eea;
             color: #333;
-            padding: 12px 20px;
+            padding: 15px 25px;
             border-radius: 25px;
             font-weight: 600;
-            font-size: 0.9rem;
-            min-width: 200px;
+            font-size: 1rem;
+            width: 100%;
             cursor: pointer;
             outline: none;
             transition: all 0.3s ease;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23667eea' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 12px center;
+            background-repeat: no-repeat;
+            background-size: 16px;
+            padding-right: 45px;
         }
         
         .company-select:focus {
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.25);
+            border-color: #5a6fd8;
+        }
+        
+        .company-select:hover {
+            background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+            transform: translateY(-2px);
         }
         
         .stats-container {
-            display: flex;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 25px;
-            margin: 30px 0;
-            flex-wrap: wrap;
+            margin: 40px 0 50px 0;
         }
         
         .stat-item {
-            background: white;
-            padding: 20px 30px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+            padding: 30px;
             border-radius: 20px;
             text-align: center;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            min-width: 140px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border: 2px solid rgba(102, 126, 234, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(102, 126, 234, 0.2);
+            border-color: rgba(102, 126, 234, 0.3);
         }
         
         .stat-number {
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 800;
-            color: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
         }
         
         .stat-label {
-            font-size: 0.95rem;
+            font-size: 1rem;
             color: #6c757d;
             text-transform: uppercase;
-            letter-spacing: 0.8px;
-            font-weight: 500;
+            letter-spacing: 1px;
+            font-weight: 600;
         }
         
         .events-section {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            margin: 30px 0;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+            border-radius: 25px;
+            margin: 40px 0;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
+            border: 2px solid rgba(102, 126, 234, 0.1);
+            overflow: hidden;
+        }
+        
+        .events-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(102, 126, 234, 0.15);
         }
         
         .events-section.hidden {
@@ -194,53 +278,98 @@
         .section-header {
             background: linear-gradient(135deg, #1e4d6b 0%, #2980b9 100%);
             color: white;
-            padding: 20px;
-            margin: -30px -30px 30px -30px;
-            font-size: 1.5rem;
+            padding: 25px 40px;
+            font-size: 1.6rem;
             font-weight: 700;
             text-align: center;
-            border-radius: 20px 20px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 2s;
+        }
+        
+        .events-section:hover .section-header::before {
+            left: 100%;
         }
         
         .events-content {
-            line-height: 1.8;
+            padding: 40px;
         }
         
-        .events-content a {
-            color: #2980b9;
-            text-decoration: none;
-            font-weight: 600;
-        }
-        
-        .events-content a:hover {
-            text-decoration: underline;
-        }
-        
+        /* Individual Event Containers */
         .event-item {
+            background: linear-gradient(135deg, #ffffff 0%, #fafbff 100%);
             margin-bottom: 25px;
-            padding-bottom: 25px;
-            border-bottom: 1px solid #eee;
+            padding: 25px;
+            border-radius: 18px;
+            border: 2px solid rgba(102, 126, 234, 0.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .event-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .event-item:hover {
+            transform: translateX(8px) translateY(-3px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.15);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+        
+        .event-item:hover::before {
+            opacity: 1;
         }
         
         .event-item:last-child {
-            border-bottom: none;
             margin-bottom: 0;
-            padding-bottom: 0;
         }
         
         .event-item.hidden {
             display: none;
         }
         
+        .event-item a {
+            color: #2980b9;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .event-item a:hover {
+            color: #667eea;
+            text-decoration: underline;
+        }
+        
         .no-events {
             text-align: center;
             color: #6c757d;
             font-style: italic;
-            padding: 40px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            padding: 60px 40px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+            border-radius: 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 2px solid rgba(102, 126, 234, 0.1);
+            font-size: 1.1rem;
         }
         
         .no-events.hidden {
@@ -248,11 +377,13 @@
         }
         
         .active-filters {
-            background: rgba(102, 126, 234, 0.1);
-            border-radius: 15px;
-            padding: 15px;
-            margin: 20px 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 30px 0;
             text-align: center;
+            backdrop-filter: blur(10px);
         }
         
         .active-filters.hidden {
@@ -260,13 +391,63 @@
         }
         
         .filter-tag {
-            background: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 5px 12px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            margin: 2px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin: 4px;
             display: inline-block;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+            transition: transform 0.2s ease;
+        }
+        
+        .filter-tag:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .filter-container {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .content {
+                padding: 30px 20px;
+            }
+            
+            .header {
+                padding: 40px 20px;
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .filter-buttons {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .filter-btn {
+                min-width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
         }
     </style>
 </head>
@@ -278,7 +459,7 @@
         </div>
         
         <div class="content">
-            <!-- Filter Container -->
+            <!-- Improved Filter Container - Equal Height -->
             <div class="filter-container">
                 <!-- Time Period Filter -->
                 <div class="filter-section">
@@ -292,11 +473,13 @@
                 </div>
                 
                 <!-- Company Filter -->
-                <div class="filter-section company-filter">
+                <div class="filter-section">
                     <div class="filter-label">🏢 Filter by Company</div>
-                    <select class="company-select" id="company-filter">
-                        <option value="all">All Companies</option>
-                    </select>
+                    <div style="display: flex; align-items: center; justify-content: center; flex: 1;">
+                        <select class="company-select" id="company-filter">
+                            <option value="all">All Companies</option>
+                        </select>
+                    </div>
                 </div>
             </div>
             
@@ -306,7 +489,7 @@
                 <div id="filter-tags"></div>
             </div>
             
-            <!-- Statistics Section -->
+            <!-- Enhanced Statistics Section -->
             <div class="stats-container">
                 <div class="stat-item">
                     <span class="stat-number">12</span>
@@ -384,7 +567,7 @@ This site visit provides an opportunity to explore Christchurch Hospital’s new
                 });
             }
             
-            // Parse events into individual items for better filtering
+            // Parse events into individual containers
             function parseEventsIntoItems() {
                 eventsSections.forEach(section => {
                     const content = section.querySelector('.events-content');
@@ -394,10 +577,14 @@ This site visit provides an opportunity to explore Christchurch Hospital’s new
                         
                         if (events.length > 0) {
                             content.innerHTML = '';
-                            events.forEach(event => {
+                            events.forEach((event, index) => {
                                 const eventDiv = document.createElement('div');
                                 eventDiv.className = 'event-item';
                                 eventDiv.innerHTML = '🔹' + event;
+                                
+                                // Add animation delay for staggered entrance
+                                eventDiv.style.animationDelay = `${index * 0.1}s`;
+                                
                                 content.appendChild(eventDiv);
                             });
                         }
@@ -430,7 +617,7 @@ This site visit provides an opportunity to explore Christchurch Hospital’s new
                 }
             }
             
-            // Apply filters
+            // Apply filters with smooth transitions
             function applyFilters() {
                 let visibleSections = 0;
                 
@@ -443,7 +630,7 @@ This site visit provides an opportunity to explore Christchurch Hospital’s new
                     const timeMatch = currentTimeFilter === 'all' || category === currentTimeFilter;
                     
                     if (timeMatch) {
-                        eventItems.forEach(item => {
+                        eventItems.forEach((item, index) => {
                             let companyMatch = true;
                             
                             // Check company filter
@@ -458,7 +645,9 @@ This site visit provides an opportunity to explore Christchurch Hospital’s new
                             }
                             
                             if (companyMatch) {
-                                item.classList.remove('hidden');
+                                setTimeout(() => {
+                                    item.classList.remove('hidden');
+                                }, index * 50); // Staggered reveal
                                 sectionHasVisibleEvents = true;
                             } else {
                                 item.classList.add('hidden');
@@ -492,7 +681,7 @@ This site visit provides an opportunity to explore Christchurch Hospital’s new
                 btn.addEventListener('click', function() {
                     currentTimeFilter = this.getAttribute('data-filter');
                     
-                    // Update active button
+                    // Update active button with smooth transition
                     timeFilterBtns.forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
                     
@@ -506,10 +695,14 @@ This site visit provides an opportunity to explore Christchurch Hospital’s new
                 applyFilters();
             });
             
-            // Initialize
+            // Initialize with smooth entrance
             parseEventsIntoItems();
             extractCompanies();
-            applyFilters();
+            
+            // Delay initial filter application for smooth load
+            setTimeout(() => {
+                applyFilters();
+            }, 100);
         });
     </script>
 </body>
